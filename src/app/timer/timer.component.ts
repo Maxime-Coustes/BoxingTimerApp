@@ -27,6 +27,7 @@ export class TimerComponent {
   startBoxingTimer() {
     this.resetTimer();
     this.isRunning = true;
+    this.isPaused = false;
     this.currentRound = 1;
     this.currentPhase = 'Active';
     this.timeLeft = this.activeTime;
