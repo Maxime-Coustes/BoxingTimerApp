@@ -1,11 +1,47 @@
-.timer {
-    text-align: center;
-    font-family: Arial, sans-serif;
+/* timer.component.css */
+.timer-config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.timer-config label {
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+.timer-config input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.timer-display {
+  text-align: center;
+  margin-top: 20px;
+}
+
+h1, h2 {
+  font-size: calc(1.5rem + 1vw); /* Responsive font size */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .timer-config label {
+    max-width: 100%;
   }
-  
+
   button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
   }
-  
+}

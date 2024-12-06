@@ -5,7 +5,6 @@ import { TimerComponent } from './timer/timer.component';
   selector: 'app-root',
   standalone: true,
   template: `
-    <h1>Boxing Timer App</h1>
     <app-timer></app-timer>
   `,
   imports: [TimerComponent],
