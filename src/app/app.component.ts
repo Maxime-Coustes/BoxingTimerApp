@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
+import { TimerComponent } from './timer/timer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
   template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    
+    <h1>Boxing Timer App</h1>
+    <app-timer></app-timer>
   `,
-  styles: [],
+  imports: [TimerComponent],
+  // styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'BoxingTimerApp';
-}
+export class AppComponent {}
