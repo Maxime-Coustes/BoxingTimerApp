@@ -1,0 +1,27 @@
+<p>COUCOU TIMER !</p>
+
+    <div class="timer-config">
+        <h2>Boxing Timer Configuration</h2>
+        <label>
+          Active Time (seconds):
+          <input type="number" [(ngModel)]="activeTime" />
+        </label>
+        <label>
+          Rest Time (seconds):
+          <input type="number" [(ngModel)]="restTime" />
+        </label>
+        <label>
+          Number of Rounds:
+          <input type="number" [(ngModel)]="rounds" />
+        </label>
+        <button (click)="startBoxingTimer()">Start Boxing Timer</button>
+        <button (click)="pauseTimer()" [disabled]="!isRunning || isPaused">Pause</button>
+        <button (click)="resumeTimer()" [disabled]="!isPaused">Resume</button>
+        <button (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+      </div>
+      
+      <div class="timer-display" *ngIf="isRunning">
+        <h1>{{ currentPhase }} Time: {{ timeLeft }} seconds</h1>
+        <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
+      </div>
+      
