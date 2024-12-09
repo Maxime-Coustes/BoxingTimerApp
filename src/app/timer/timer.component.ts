@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
-export class TimerComponent {
+export class TimerComponent implements AfterViewInit {
   activeTime: number = 180; // Default: 3 minutes
   restTime: number = 60;   // Default: 1 minute
   rounds: number = 3;      // Default: 3 rounds
@@ -26,26 +26,56 @@ export class TimerComponent {
   instructionId: any; // Pour l'instruction répétée
 
   // Configuration des instructions
-  instructionInterval = 5; // Intervalle par défaut (toutes les 10 secondes)
+  instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
   instructionMaxValue = 10; // Valeur max du chiffre prononcé
   instructionMinValue = 1; // Valeur min du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
   availableVoices: SpeechSynthesisVoice[] = [];
   selectedVoice: string = ''; // ID ou nom de la voix sélectionnée
 
-  ngOnInit() {
-    this.loadVoices();
-    // Écoute les événements de chargement des voix si elles ne sont pas disponibles immédiatement
-    window.speechSynthesis.onvoiceschanged = () => {
-      this.loadVoices();
-    };
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit triggered');
+
+    // Vérifier si le code est exécuté côté client (dans le navigateur)
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      console.log('speechSynthesis exists');
+
+      // Écouter l'événement 'voiceschanged' pour être sûr que les voix sont disponibles
+      window.speechSynthesis.onvoiceschanged = () => {
+        console.log('voiceschanged event triggered');
+        this.loadVoices(); // Charger les voix lorsque l'événement se déclenche
+      };
+
+      // Pour être sûr que les voix sont disponibles après que tout soit initialisé
+      setTimeout(() => {
+        this.loadVoices(); // Charger les voix après un petit délai
+      }, 1000);
+    } else {
+      console.log('window or speechSynthesis is not available');
+    }
   }
 
+
   private loadVoices() {
-    this.availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('fr-FR'))
-      .sort((a, b) => a.name.localeCompare(b.name)); // Ne garder que les voix françaises & ordre alphabétique;
-    if (this.availableVoices.length > 0 && !this.selectedVoice) {
-      this.selectedVoice = this.availableVoices[0].name; // Par défaut, sélectionne la première voix
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      this.availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('fr-FR'))
+        .sort((a, b) => a.name.localeCompare(b.name)); // Ne garder que les voix françaises & ordre alphabétique;
+
+      console.log('this.availableVoices', this.availableVoices);
+
+      if (this.availableVoices.length > 0 && !this.selectedVoice) {
+        const defaultVoice = this.availableVoices.find(voice => voice.name === "French (France)+Hugo (fr-FR)"); // use this as default value if available 
+        // Si la voix est trouvée, sélectionnez-la
+        if (defaultVoice) {
+          this.selectedVoice = defaultVoice.name;
+        } else {
+          // Si la voix par défaut n'est pas trouvée, sélectionnez la première voix dans la liste
+          this.selectedVoice = this.availableVoices[0].name;
+        }
+      } else {
+        console.error('Speech synthesis not available or window is undefined');
+      }
     }
   }
 
@@ -54,7 +84,7 @@ export class TimerComponent {
     // French (France)+Hugo (fr-FR) 
     // Trouver la voix sélectionnée par son nom
     const selectedVoice = this.availableVoices.find(v => v.name === voiceName);
-    
+
     if (selectedVoice) {
       utterance.voice = selectedVoice; // Appliquer la voix sélectionnée
     }
@@ -62,7 +92,7 @@ export class TimerComponent {
     utterance.rate = 0.95; // Vitesse normale
     utterance.pitch = 0.85; // Tonalité normale
     utterance.volume = 1; // Volume maximum
-    
+
     window.speechSynthesis.speak(utterance); // Lancer la synthèse vocale
   }
 
