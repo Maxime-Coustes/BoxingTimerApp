@@ -1,5 +1,34 @@
 <div class="timer-config">
     <h2>Boxing Timer Configuration</h2>
+    <ul>
+        <p> recommandation: French (France)+Hugo (fr-FR) </p>
+        <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
+            {{ voice.name }} ({{ voice.lang }})
+        </li>
+    </ul>
+
+    <label>
+        Voix :
+        <select [(ngModel)]="selectedVoice">
+            <option *ngFor="let voice of availableVoices" [value]="voice.name">
+                {{ voice.name }} ({{ voice.lang }})
+            </option>
+        </select>
+    </label>
+
+
+    <label>
+        Intervalle des instructions (secondes) :
+        <input type="number" [(ngModel)]="instructionInterval" min="1" />
+    </label>
+    <label>
+        Valeur min des instructions :
+        <input type="number" [(ngModel)]="instructionMinValue" min="1" />
+    </label>
+    <label>
+        Valeur max des instructions :
+        <input type="number" [(ngModel)]="instructionMaxValue" min="1" />
+    </label>
     <label>
         Active Time (seconds):
         <input type="number" [(ngModel)]="activeTime" />
