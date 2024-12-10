@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -31,51 +31,33 @@ export class TimerComponent implements AfterViewInit {
   instructionMinValue = 1; // Valeur min du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
   availableVoices: SpeechSynthesisVoice[] = [];
-  selectedVoice: string = ''; // ID ou nom de la voix sélectionnée
+  selectedVoice: string | undefined | null; // ID ou nom de la voix sélectionnée
+  defaultVoice: string = 'French (France)+Hugo';
 
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit triggered');
-
-    // Vérifier si le code est exécuté côté client (dans le navigateur)
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-      console.log('speechSynthesis exists');
-
-      // Écouter l'événement 'voiceschanged' pour être sûr que les voix sont disponibles
-      window.speechSynthesis.onvoiceschanged = () => {
-        console.log('voiceschanged event triggered');
-        this.loadVoices(); // Charger les voix lorsque l'événement se déclenche
-      };
-
-      // Pour être sûr que les voix sont disponibles après que tout soit initialisé
-      setTimeout(() => {
-        this.loadVoices(); // Charger les voix après un petit délai
-      }, 1000);
-    } else {
-      console.log('window or speechSynthesis is not available');
-    }
+    this.loadVoices();
   }
-
 
   private loadVoices() {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
-      this.availableVoices = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('fr-FR'))
-        .sort((a, b) => a.name.localeCompare(b.name)); // Ne garder que les voix françaises & ordre alphabétique;
+      this.availableVoices = window.speechSynthesis.getVoices()
+        .filter(voice => voice.lang.startsWith('fr-FR'))
+        .sort((a, b) => a.name.localeCompare(b.name));
 
-      console.log('this.availableVoices', this.availableVoices);
+      console.log(this.availableVoices);
 
       if (this.availableVoices.length > 0 && !this.selectedVoice) {
-        const defaultVoice = this.availableVoices.find(voice => voice.name === "French (France)+Hugo (fr-FR)"); // use this as default value if available 
-        // Si la voix est trouvée, sélectionnez-la
-        if (defaultVoice) {
-          this.selectedVoice = defaultVoice.name;
-        } else {
-          // Si la voix par défaut n'est pas trouvée, sélectionnez la première voix dans la liste
-          this.selectedVoice = this.availableVoices[0].name;
-        }
-      } else {
-        console.error('Speech synthesis not available or window is undefined');
+        this.selectedVoice = this.defaultVoice
+          ? this.defaultVoice
+          : this.availableVoices[0].name;
       }
+
+      // Notifie Angular des modifications
+      this.cdr.detectChanges();
+    } else {
+      console.error('Speech synthesis not available or window is undefined');
     }
   }
 
