@@ -5,16 +5,17 @@
             {{ voice.name }} ({{ voice.lang }})
         </li>
     </ul>  -->
-    
-    <p> recommandation: French (France)+Hugo (fr-FR)  ou French (France)+Denis (fr-FR) </p>
-    <label>
-        Voix :
-        <select [(ngModel)]="selectedVoice">
-            <option *ngFor="let voice of availableVoices" [value]="voice.name">
-                {{ voice.name }} ({{ voice.lang }})
-            </option>
-        </select>
-    </label>
+    <div *ngIf="availableVoices.length > 0">
+        <p> recommandation: French (France)+Hugo (fr-FR)  ou French (France)+Denis (fr-FR) </p>
+        <label>
+            Voix :
+            <select [(ngModel)]="selectedVoice">
+                <option *ngFor="let voice of availableVoices" [value]="voice.name">
+                    {{ voice.name }} ({{ voice.lang }})
+                </option>
+            </select>
+        </label>
+    </div>
 
 
     <label>
