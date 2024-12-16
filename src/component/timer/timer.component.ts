@@ -45,13 +45,23 @@ export class TimerComponent implements AfterViewInit {
       this.availableVoices = window.speechSynthesis.getVoices()
         .filter(voice => voice.lang.startsWith('fr-FR'))
         .sort((a, b) => a.name.localeCompare(b.name));
-
-      console.log(this.availableVoices);
+ 
+      const userAgent = navigator.userAgent;
+      const isFirefox = userAgent.includes('Firefox');
+      const isChrome = userAgent.includes('Chrome') || userAgent.includes('Chromium');
 
       if (this.availableVoices.length > 0 && !this.selectedVoice) {
-        this.selectedVoice = this.defaultVoice
-          ? this.defaultVoice
-          : this.availableVoices[0].name;
+        if (isFirefox) {
+          this.selectedVoice = this.defaultVoice
+            ? this.defaultVoice
+            : this.availableVoices[0].name;
+        } else if (isChrome) {;
+          // Appliquer la voix par défaut uniquement
+          this.selectedVoice = this.defaultVoice || '';
+        } else {
+          // Pour les autres navigateurs, utiliser une stratégie de fallback
+          this.selectedVoice = this.availableVoices[0].name;
+        }
       }
 
       // Notifie Angular des modifications
