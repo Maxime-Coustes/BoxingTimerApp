@@ -57,3 +57,15 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+
+# Custom infos:
+To build to project : ng build --configuration production     (it build the dist/ folder)
+
+The go on /dist/boxing-timer-app/browser
+and run   http-server --cors --spa
+
+
+To access to it from mobile device go on http://192.168.X.XX:8080/
+(check ifconfig  looking for 192.168...)
