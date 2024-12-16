@@ -6,7 +6,7 @@
         </li>
     </ul>  -->
     <div *ngIf="availableVoices.length > 0">
-        <p> recommandation: French (France)+Hugo (fr-FR)  ou French (France)+Denis (fr-FR) </p>
+        <p> recommandation: French (France)+Hugo (fr-FR) ou French (France)+Denis (fr-FR) </p>
         <label>
             Voix :
             <select [(ngModel)]="selectedVoice">
@@ -22,14 +22,15 @@
         Intervalle des instructions (secondes) :
         <input type="number" [(ngModel)]="instructionInterval" min="1" />
     </label>
+
     <label>
-        Valeur min des instructions :
-        <input type="number" [(ngModel)]="instructionMinValue" min="1" />
+        Valeur min / max des instructions :
     </label>
-    <label>
-        Valeur max des instructions :
-        <input type="number" [(ngModel)]="instructionMaxValue" min="1" />
-    </label>
+    <mat-slider min="1" max="10" step="1" showTickMarks discrete>
+        <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
+        <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue">
+    </mat-slider>
+
     <label>
         Active Time (seconds):
         <input type="number" [(ngModel)]="activeTime" />

@@ -45,3 +45,7 @@ button {
     max-width: 300px;
   }
 }
+
+mat-slider {
+  width: 300px;
+}

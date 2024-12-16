@@ -1,11 +1,12 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatSliderModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
@@ -27,8 +28,8 @@ export class TimerComponent implements AfterViewInit {
 
   // Configuration des instructions
   instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
-  instructionMaxValue = 10; // Valeur max du chiffre prononcé
   instructionMinValue = 1; // Valeur min du chiffre prononcé
+  instructionMaxValue = 6; // Valeur max du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
   availableVoices: SpeechSynthesisVoice[] = [];
   selectedVoice: string | undefined | null; // ID ou nom de la voix sélectionnée
