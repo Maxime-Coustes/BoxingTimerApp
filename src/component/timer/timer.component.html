@@ -1,0 +1,53 @@
+<div class="timer-config">
+    <h2>Boxing Timer Configuration</h2>
+    <!-- <ul>
+        <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
+            {{ voice.name }} ({{ voice.lang }})
+        </li>
+    </ul>  -->
+    
+    <p> recommandation: French (France)+Hugo (fr-FR)  ou French (France)+Denis (fr-FR) </p>
+    <label>
+        Voix :
+        <select [(ngModel)]="selectedVoice">
+            <option *ngFor="let voice of availableVoices" [value]="voice.name">
+                {{ voice.name }} ({{ voice.lang }})
+            </option>
+        </select>
+    </label>
+
+
+    <label>
+        Intervalle des instructions (secondes) :
+        <input type="number" [(ngModel)]="instructionInterval" min="1" />
+    </label>
+    <label>
+        Valeur min des instructions :
+        <input type="number" [(ngModel)]="instructionMinValue" min="1" />
+    </label>
+    <label>
+        Valeur max des instructions :
+        <input type="number" [(ngModel)]="instructionMaxValue" min="1" />
+    </label>
+    <label>
+        Active Time (seconds):
+        <input type="number" [(ngModel)]="activeTime" />
+    </label>
+    <label>
+        Rest Time (seconds):
+        <input type="number" [(ngModel)]="restTime" />
+    </label>
+    <label>
+        Number of Rounds:
+        <input type="number" [(ngModel)]="rounds" />
+    </label>
+    <button (click)="startBoxingTimer()">Start Boxing Timer</button>
+    <button (click)="pauseTimer()" [disabled]="!isRunning || isPaused">Pause</button>
+    <button (click)="resumeTimer()" [disabled]="!isPaused">Resume</button>
+    <button (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+</div>
+
+<div class="timer-display" *ngIf="isRunning">
+    <h1>{{ currentPhase }} Time: {{ timeLeft }} seconds</h1>
+    <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
+</div>
