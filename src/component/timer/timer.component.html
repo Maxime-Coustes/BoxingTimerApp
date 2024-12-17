@@ -26,34 +26,54 @@
         </mat-expansion-panel>
     </mat-accordion>
 
+    <!-- Instructions config -->
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Configurer les instructions
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <label>
+                Intervalle des instructions (secondes):
+                <input type="number" [(ngModel)]="instructionInterval" min="1" />
+            </label>
 
+            <label>
+                Valeur min / max des instructions:
+            </label>
+            <mat-slider min="1" max="10" step="1" showTickMarks discrete>
+                <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
+                <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue">
+            </mat-slider>
+        </mat-expansion-panel>
+    </mat-accordion>
 
-    <label>
-        Intervalle des instructions (secondes):
-        <input type="number" [(ngModel)]="instructionInterval" min="1" />
-    </label>
+    <!-- rounds config -->
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Configurer les rounds
+                </mat-panel-title>
+            </mat-expansion-panel-header>
 
-    <label>
-        Valeur min / max des instructions:
-    </label>
-    <mat-slider min="1" max="10" step="1" showTickMarks discrete>
-        <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
-        <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue">
-    </mat-slider>
+            <label>
+                Active Time (seconds):
+                <input type="number" [(ngModel)]="activeTime" />
+            </label>
+            <label>
+                Rest Time (seconds):
+                <input type="number" [(ngModel)]="restTime" />
+            </label>
+            <label>
+                Number of Rounds:
+                <input type="number" [(ngModel)]="rounds" />
+            </label>
+        </mat-expansion-panel>
+    </mat-accordion>
 
-    <label>
-        Active Time (seconds):
-        <input type="number" [(ngModel)]="activeTime" />
-    </label>
-    <label>
-        Rest Time (seconds):
-        <input type="number" [(ngModel)]="restTime" />
-    </label>
-    <label>
-        Number of Rounds:
-        <input type="number" [(ngModel)]="rounds" />
-    </label>
-
+    <!-- actions buttons -->
     <div class="button-group">
         <button mat-icon-button color="primary" (click)="startBoxingTimer()" [disabled]="isRunning">
             <mat-icon>play_arrow</mat-icon>
@@ -71,7 +91,12 @@
 
 </div>
 
+<!-- timer display -->
 <div class="timer-display" *ngIf="isRunning">
     <h1>{{ currentPhase }} Time: {{ timeLeft }} seconds</h1>
     <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
 </div>
+
+<!-- test clock -->
+
+  

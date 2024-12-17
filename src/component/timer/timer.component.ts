@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef,} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements AfterViewInit {
+
   activeTime: number = 180; // Default: 3 minutes
   restTime: number = 60;   // Default: 1 minute
   rounds: number = 3;      // Default: 3 rounds
