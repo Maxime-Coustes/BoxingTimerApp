@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule],
+  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
