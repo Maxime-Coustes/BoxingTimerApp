@@ -4,10 +4,11 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  gap: 20px; /* Espacement entre les éléments */
 }
 
 .timer-config label {
-  margin: 10px 0;
+  margin: 10px ;
   width: 100%;
   max-width: 300px;
 }
@@ -20,6 +21,7 @@
 
 .timer-display {
   text-align: center;
+  font-size: 18px;
   margin-top: 20px;
 }
 
@@ -37,7 +39,7 @@ button {
 
 @media (max-width: 600px) {
   .timer-config label {
-    max-width: 100%;
+    max-width: 75%;
   }
 
   button {
@@ -46,6 +48,32 @@ button {
   }
 }
 
-mat-slider {
-  width: 300px;
+.timer-config mat-slider {
+  margin: 10px ;
+  width: 100%;
+  max-width: 300px;
 }
+
+.button-group {
+  display: flex; /* Flexbox pour aligner horizontalement */
+  justify-content: space-evenly; /* Répartition uniforme des boutons */
+  align-items: center; /* Alignement vertical au centre */
+  gap: 8px; /* Espacement entre les boutons */
+  padding: 0; /* Aucune marge intérieure */
+  overflow: hidden; /* Évite le scroll horizontal */
+}
+
+.button-group button {
+  flex: 0 0 auto; /* Taille automatique sans flex-grow */
+  width: 48px; /* Taille fixe pour les boutons */
+  height: 48px; /* Taille fixe pour les boutons */
+  margin: 0; /* Supprime les marges */
+  padding: 0; /* Supprime les paddings */
+}
+
+mat-icon {
+  font-size: 24px; /* Taille réduite des icônes */
+}
+
+
+

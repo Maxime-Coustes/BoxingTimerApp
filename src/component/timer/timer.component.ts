@@ -2,11 +2,13 @@ import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatSliderModule],
+  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })

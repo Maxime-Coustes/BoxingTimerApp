@@ -1,5 +1,4 @@
 <div class="timer-config">
-    <h2>Boxing Timer Configuration</h2>
     <!-- <ul>
         <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
             {{ voice.name }} ({{ voice.lang }})
@@ -19,12 +18,12 @@
 
 
     <label>
-        Intervalle des instructions (secondes) :
+        Intervalle des instructions (secondes):
         <input type="number" [(ngModel)]="instructionInterval" min="1" />
     </label>
 
     <label>
-        Valeur min / max des instructions :
+        Valeur min / max des instructions:
     </label>
     <mat-slider min="1" max="10" step="1" showTickMarks discrete>
         <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
@@ -43,10 +42,22 @@
         Number of Rounds:
         <input type="number" [(ngModel)]="rounds" />
     </label>
-    <button (click)="startBoxingTimer()">Start Boxing Timer</button>
-    <button (click)="pauseTimer()" [disabled]="!isRunning || isPaused">Pause</button>
-    <button (click)="resumeTimer()" [disabled]="!isPaused">Resume</button>
-    <button (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+
+    <div class="button-group">
+        <button mat-icon-button color="primary" (click)="startBoxingTimer()" [disabled]="isRunning">
+            <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="pauseTimer()" [disabled]="!isRunning || isPaused">
+            <mat-icon>pause</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="resumeTimer()" [disabled]="!isRunning || !isPaused">
+            <mat-icon>replay</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="stopTimer()" [disabled]="!isRunning">
+            <mat-icon>stop</mat-icon>
+        </button>
+    </div>
+
 </div>
 
 <div class="timer-display" *ngIf="isRunning">
