@@ -87,8 +87,16 @@
                 <h1>{{ currentPhase }} Time: {{ timeLeft }} seconds</h1>
                 <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
             </div>
+
             <!-- test clock -->
+            <div class="circle-timer-container">
+                <svg class="circle-timer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+                    <circle class="circle" cx="18" cy="18" r="15.915" stroke="blue" fill="none" stroke-width="2" />
+                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="4" fill="black">
+                        {{ timeLeft }}
+                    </text>
+                </svg>
+            </div>
         </mat-tab>
     </mat-tab-group>
 </div>
-

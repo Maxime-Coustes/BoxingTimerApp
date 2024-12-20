@@ -21,7 +21,7 @@
   width: 85%;
   padding: 18px;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 1px;
 }
 
 /* ==== Styles pour la section Voix ==== */
@@ -58,6 +58,7 @@ h1, h2 {
   gap: 8px; /* Espacement entre les boutons */
   padding: 0; /* Aucune marge intérieure */
   overflow: hidden; /* Évite le scroll horizontal */
+  margin-top: 10px;
 }
 
 .button-group button {
@@ -100,3 +101,31 @@ mat-icon {
     max-width: 300px; /* Limite la largeur maximale */
   }
 }
+
+/* test clock */
+/* Conteneur parent qui occupe toute la hauteur de l'écran */
+.circle-timer-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Cela occupe toute la hauteur de l'écran */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Le chronomètre circulaire (SVG) */
+.circle-timer {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+}
+
+.circle-timer text {
+  font-size: 1rem;
+}
+
+
+
