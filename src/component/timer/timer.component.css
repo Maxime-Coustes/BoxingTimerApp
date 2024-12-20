@@ -11,12 +11,15 @@
   margin: 10px ;
   width: 100%;
   max-width: 300px;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .timer-config input {
-  width: 100%;
-  padding: 8px;
+  width: 85%;
+  padding: 18px;
   font-size: 16px;
+  margin-top: 10px;
 }
 
 .timer-display {
@@ -40,8 +43,13 @@ button {
 @media (max-width: 600px) {
   .timer-config label {
     max-width: 75%;
+    padding: 1rem;
   }
 
+  .button-group button {
+    flex: 1;
+    margin: 0.2rem;
+}
   button {
     width: 100%;
     max-width: 300px;
@@ -67,12 +75,15 @@ button {
   flex: 0 0 auto; /* Taille automatique sans flex-grow */
   width: 48px; /* Taille fixe pour les boutons */
   height: 48px; /* Taille fixe pour les boutons */
-  margin: 0; /* Supprime les marges */
+  margin: 0 0.5rem; /* Supprime les marges */
   padding: 0; /* Supprime les paddings */
 }
 
 mat-icon {
   font-size: 24px; /* Taille réduite des icônes */
 }
+
+
+/* test clock */
 
 

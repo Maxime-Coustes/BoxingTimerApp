@@ -1,91 +1,108 @@
 <div class="timer-config">
-    <!-- Test voices -->
-    <mat-accordion *ngIf="availableVoices.length > 0">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Configurer les voix
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div>
-                <ul>
-                    <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
-                        {{ voice.name }} ({{ voice.lang }})
-                    </li>
-                </ul>
-                <p>Recommandation: French (France)+Hugo (fr-FR) ou French (France)+Denis (fr-FR)</p>
-                <label>
-                    Voix :
-                    <select [(ngModel)]="selectedVoice">
-                        <option *ngFor="let voice of availableVoices" [value]="voice.name">
-                            {{ voice.name }} ({{ voice.lang }})
-                        </option>
-                    </select>
-                </label>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
+    <mat-tab-group>
+        <mat-tab label="Voix" *ngIf="availableVoices.length > 0">
+            <!-- Contenu de la configuration des voix -->
+            <!-- <mat-accordion *ngIf="availableVoices.length > 0">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header> -->
+                        <!-- <mat-panel-title>
+                            Configurer les voix
+                        </mat-panel-title> -->
+                    <!-- </mat-expansion-panel-header> -->
+                    <div>
+                        <ul>
+                            <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
+                                {{ voice.name }} ({{ voice.lang }})
+                            </li>
+                        </ul>
+                        <p>Recommandation: French (France)+Hugo (fr-FR) ou French (France)+Denis (fr-FR)</p>
+                        <label>
+                            Voix :
+                            <select [(ngModel)]="selectedVoice">
+                                <option *ngFor="let voice of availableVoices" [value]="voice.name">
+                                    {{ voice.name }} ({{ voice.lang }})
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                <!-- </mat-expansion-panel>
+            </mat-accordion> -->
+        </mat-tab>
+        <mat-tab label="Instructions">
+            <!-- Contenu de la configuration des instructions -->
+            <!-- <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Configurer les instructions
+                        </mat-panel-title>
+                    </mat-expansion-panel-header> -->
+                    <label>
+                        Intervalle des instructions (secondes):
+                        <input type="number" [(ngModel)]="instructionInterval" min="1" />
+                    </label>
+        
+                    <label>
+                        Valeur min / max des instructions:
+                    </label>
+                    <mat-slider min="1" max="10" step="1" showTickMarks discrete>
+                        <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
+                        <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue">
+                    </mat-slider>
+                <!-- </mat-expansion-panel>
+            </mat-accordion> -->
+        </mat-tab>
+        <mat-tab label="Rounds">
+            <!-- Contenu de la configuration des rounds -->
+            <!-- <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Configurer les rounds
+                        </mat-panel-title>
+                    </mat-expansion-panel-header> -->
+        
+                    <label>
+                        Active Time (seconds):
+                        <input type="number" [(ngModel)]="activeTime" />
+                    </label>
+                    <label>
+                        Rest Time (seconds):
+                        <input type="number" [(ngModel)]="restTime" />
+                    </label>
+                    <label>
+                        Number of Rounds:
+                        <input type="number" [(ngModel)]="rounds" />
+                    </label>
+                <!-- </mat-expansion-panel>
+            </mat-accordion> -->
+        </mat-tab>
+    </mat-tab-group>
 
-    <!-- Instructions config -->
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Configurer les instructions
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <label>
-                Intervalle des instructions (secondes):
-                <input type="number" [(ngModel)]="instructionInterval" min="1" />
-            </label>
+    
+    
 
-            <label>
-                Valeur min / max des instructions:
-            </label>
-            <mat-slider min="1" max="10" step="1" showTickMarks discrete>
-                <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue">
-                <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue">
-            </mat-slider>
-        </mat-expansion-panel>
-    </mat-accordion>
 
-    <!-- rounds config -->
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Configurer les rounds
-                </mat-panel-title>
-            </mat-expansion-panel-header>
 
-            <label>
-                Active Time (seconds):
-                <input type="number" [(ngModel)]="activeTime" />
-            </label>
-            <label>
-                Rest Time (seconds):
-                <input type="number" [(ngModel)]="restTime" />
-            </label>
-            <label>
-                Number of Rounds:
-                <input type="number" [(ngModel)]="rounds" />
-            </label>
-        </mat-expansion-panel>
-    </mat-accordion>
+
 
     <!-- actions buttons -->
     <div class="button-group">
         <button mat-icon-button color="primary" (click)="startBoxingTimer()" [disabled]="isRunning">
             <mat-icon>play_arrow</mat-icon>
+            <span>Play</span>
         </button>
         <button mat-icon-button color="accent" (click)="pauseTimer()" [disabled]="!isRunning || isPaused">
             <mat-icon>pause</mat-icon>
+            <span>Pause</span>
         </button>
         <button mat-icon-button color="primary" (click)="resumeTimer()" [disabled]="!isRunning || !isPaused">
             <mat-icon>replay</mat-icon>
+            <span>Resume</span>
         </button>
         <button mat-icon-button color="warn" (click)="stopTimer()" [disabled]="!isRunning">
             <mat-icon>stop</mat-icon>
+            <span>Stop</span>
         </button>
     </div>
 

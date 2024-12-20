@@ -1,15 +1,17 @@
-import { Component, AfterViewInit, ChangeDetectorRef,} from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule],
+  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule,
+     MatTabsModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
@@ -38,6 +40,7 @@ export class TimerComponent implements AfterViewInit {
   availableVoices: SpeechSynthesisVoice[] = [];
   selectedVoice: string | undefined | null; // ID ou nom de la voix sélectionnée
   defaultVoice: string = 'French (France)+Hugo';
+  totalTime: number = 0;
 
   constructor(private cdr: ChangeDetectorRef) { }
 
@@ -50,7 +53,7 @@ export class TimerComponent implements AfterViewInit {
       this.availableVoices = window.speechSynthesis.getVoices()
         .filter(voice => voice.lang.startsWith('fr-FR'))
         .sort((a, b) => a.name.localeCompare(b.name));
- 
+
       const userAgent = navigator.userAgent;
       const isFirefox = userAgent.includes('Firefox');
       const isChrome = userAgent.includes('Chrome') || userAgent.includes('Chromium');
@@ -60,7 +63,8 @@ export class TimerComponent implements AfterViewInit {
           this.selectedVoice = this.defaultVoice
             ? this.defaultVoice
             : this.availableVoices[0].name;
-        } else if (isChrome) {;
+        } else if (isChrome) {
+          ;
           // Appliquer la voix par défaut uniquement
           this.selectedVoice = this.defaultVoice || '';
         } else {
@@ -75,6 +79,12 @@ export class TimerComponent implements AfterViewInit {
       console.error('Speech synthesis not available or window is undefined');
     }
   }
+
+  calculateCircleOffset(): number {
+    const totalTime = this.totalTime || 1; // Éviter la division par zéro
+    return ((totalTime - this.timeLeft) / totalTime) * 100; // Proportion de temps écoulé
+  }
+
 
   testVoice(voiceName: string) {
     const utterance = new SpeechSynthesisUtterance('Bonjour, je suis votre assistant virtuel. 1, 3, 2, 5, 4');
