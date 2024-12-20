@@ -1,4 +1,4 @@
-/* timer.component.css */
+/* ==== Styles Généraux ==== */
 .timer-config {
   display: flex;
   flex-direction: column;
@@ -7,14 +7,16 @@
   gap: 20px; /* Espacement entre les éléments */
 }
 
+/* Styles généraux pour les labels */
 .timer-config label {
-  margin: 10px ;
+  display: block; /* Assure que chaque label est sur sa propre ligne */
+  margin: 1.5rem 0 0.5rem; /* Espacement haut (1.5rem) et bas (0.5rem) */
   width: 100%;
   max-width: 300px;
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
 }
 
+/* Styles généraux pour les inputs */
 .timer-config input {
   width: 85%;
   padding: 18px;
@@ -22,46 +24,33 @@
   margin-top: 10px;
 }
 
+/* ==== Styles pour la section Voix ==== */
+/* Aucun style spécifique pour cette section */
+
+/* ==== Styles pour la section Instructions ==== */
+.timer-config mat-slider {
+  margin: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* ==== Styles pour la section Rounds ==== */
+/* Aucun style spécifique pour cette section */
+
+/* ==== Styles pour la section Timer ==== */
+/* Styles pour l'affichage du Timer */
 .timer-display {
   text-align: center;
+  display: block;
   font-size: 18px;
   margin-top: 20px;
 }
 
 h1, h2 {
-  font-size: calc(1.5rem + 1vw); /* Responsive font size */
+  font-size: calc(1.5rem + 1vw); /* Taille de police responsive */
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-@media (max-width: 600px) {
-  .timer-config label {
-    max-width: 75%;
-    padding: 1rem;
-  }
-
-  .button-group button {
-    flex: 1;
-    margin: 0.2rem;
-}
-  button {
-    width: 100%;
-    max-width: 300px;
-  }
-}
-
-.timer-config mat-slider {
-  margin: 10px ;
-  width: 100%;
-  max-width: 300px;
-}
-
+/* Styles pour les boutons d'actions */
 .button-group {
   display: flex; /* Flexbox pour aligner horizontalement */
   justify-content: space-evenly; /* Répartition uniforme des boutons */
@@ -73,17 +62,41 @@ button {
 
 .button-group button {
   flex: 0 0 auto; /* Taille automatique sans flex-grow */
-  width: 48px; /* Taille fixe pour les boutons */
-  height: 48px; /* Taille fixe pour les boutons */
-  margin: 0 0.5rem; /* Supprime les marges */
-  padding: 0; /* Supprime les paddings */
+  width: 60px; /* Taille légèrement augmentée pour plus de clarté */
+  height: 60px; /* Correspond à la largeur */
+  padding: 0; /* Supprime le padding interne */
+  text-align: center; /* Assure que le contenu est centré */
+}
+
+/* Styles spécifiques pour les boutons avec du texte */
+.button-group button span {
+  font-size: 14px; /* Ajuste la taille du texte */
+  display: block; /* S'assure que le texte ne chevauche pas l'icône */
+  margin-top: 4px; /* Ajoute un peu d'espacement sous l'icône */
+  text-align: center; /* Centre le texte sous l'icône */
 }
 
 mat-icon {
-  font-size: 24px; /* Taille réduite des icônes */
+  font-size: 24px; /* Taille standard des icônes */
+  line-height: 1; /* Évite les décalages */
 }
 
 
-/* test clock */
+/* ==== Styles Responsives (Mobile) ==== */
+@media (max-width: 600px) {
+  .timer-config label {
+    max-width: 75%; /* Limite la largeur des labels */
+    padding: 1rem; /* Ajoute un padding interne */
+    margin-top: 1.5rem; /* Plus d'espace sur mobile */
+  }
 
+  .button-group button {
+    flex: 1; /* Les boutons prennent toute la largeur disponible */
+    margin: 0.2rem;
+  }
 
+  button {
+    width: 100%;
+    max-width: 300px; /* Limite la largeur maximale */
+  }
+}
