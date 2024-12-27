@@ -30,7 +30,7 @@
 /* ==== Styles pour la section Instructions ==== */
 .timer-config mat-slider {
   margin: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 300px;
 }
 
