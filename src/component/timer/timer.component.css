@@ -34,6 +34,19 @@
   max-width: 300px;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espacement entre la checkbox et le label */
+  font-size: 1rem; /* Taille du texte */
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 20px;
+  height: 20px; /* Taille personnalisée de la checkbox */
+}
+
+
 /* ==== Styles pour la section Rounds ==== */
 /* Aucun style spécifique pour cette section */
 
