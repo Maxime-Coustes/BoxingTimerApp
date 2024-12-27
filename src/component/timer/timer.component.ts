@@ -106,16 +106,6 @@ export class TimerComponent implements AfterViewInit {
 
 
   // Start the boxing timer
-  // startBoxingTimer() {
-  //   this.resetTimer();
-  //   this.isRunning = true;
-  //   this.isPaused = false;
-  //   this.currentRound = 1;
-  //   this.currentPhase = 'Active';
-  //   this.timeLeft = this.activeTime;
-  //   this.runTimer();
-  //   this.startInstructionTimer();
-  // }
   startBoxingTimer() {
     if (this.isRunning) return;
 
@@ -133,7 +123,7 @@ export class TimerComponent implements AfterViewInit {
         this.timeLeft--;
 
         // Décompte vocal pour les 5 dernières secondes de repos
-        if (this.currentPhase === 'Rest' && this.timeLeft <= 5) {
+        if (this.timeLeft <= 5 && this.timeLeft != 0) {
           this.speakInstruction(this.timeLeft.toString());
         }
       } else {
