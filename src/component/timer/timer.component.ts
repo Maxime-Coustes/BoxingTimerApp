@@ -1,15 +1,22 @@
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule,
+    MatTabsModule],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements AfterViewInit {
+
   activeTime: number = 180; // Default: 3 minutes
   restTime: number = 60;   // Default: 1 minute
   rounds: number = 3;      // Default: 3 rounds
@@ -27,12 +34,14 @@ export class TimerComponent implements AfterViewInit {
 
   // Configuration des instructions
   instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
-  instructionMaxValue = 10; // Valeur max du chiffre prononcé
   instructionMinValue = 1; // Valeur min du chiffre prononcé
+  instructionMaxValue = 6; // Valeur max du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
   availableVoices: SpeechSynthesisVoice[] = [];
   selectedVoice: string | undefined | null; // ID ou nom de la voix sélectionnée
   defaultVoice: string = 'French (France)+Hugo';
+  totalTime: number = 0;
+  noInstructions: boolean = false; // Désactiver les instructions si true
 
   constructor(private cdr: ChangeDetectorRef) { }
 
@@ -45,7 +54,7 @@ export class TimerComponent implements AfterViewInit {
       this.availableVoices = window.speechSynthesis.getVoices()
         .filter(voice => voice.lang.startsWith('fr-FR'))
         .sort((a, b) => a.name.localeCompare(b.name));
- 
+
       const userAgent = navigator.userAgent;
       const isFirefox = userAgent.includes('Firefox');
       const isChrome = userAgent.includes('Chrome') || userAgent.includes('Chromium');
@@ -55,7 +64,8 @@ export class TimerComponent implements AfterViewInit {
           this.selectedVoice = this.defaultVoice
             ? this.defaultVoice
             : this.availableVoices[0].name;
-        } else if (isChrome) {;
+        } else if (isChrome) {
+          ;
           // Appliquer la voix par défaut uniquement
           this.selectedVoice = this.defaultVoice || '';
         } else {
@@ -70,6 +80,12 @@ export class TimerComponent implements AfterViewInit {
       console.error('Speech synthesis not available or window is undefined');
     }
   }
+
+  calculateCircleOffset(): number {
+    const totalTime = this.totalTime || 1; // Éviter la division par zéro
+    return ((totalTime - this.timeLeft) / totalTime) * 100; // Proportion de temps écoulé
+  }
+
 
   testVoice(voiceName: string) {
     const utterance = new SpeechSynthesisUtterance('Bonjour, je suis votre assistant virtuel. 1, 3, 2, 5, 4');
@@ -91,15 +107,45 @@ export class TimerComponent implements AfterViewInit {
 
   // Start the boxing timer
   startBoxingTimer() {
-    this.resetTimer();
+    if (this.isRunning) return;
+
     this.isRunning = true;
-    this.isPaused = false;
+    this.timeLeft = this.currentPhase === 'Active' ? this.activeTime : this.restTime;
     this.currentRound = 1;
-    this.currentPhase = 'Active';
-    this.timeLeft = this.activeTime;
-    this.runTimer();
-    this.startInstructionTimer();
+
+    // Message vocal pour le début
+    if (this.currentPhase === 'Active') {
+      this.speakInstruction(`Boxez !`);
+    }
+
+    this.timer = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+
+        // Décompte vocal pour les 5 dernières secondes de repos
+        if (this.timeLeft <= 5 && this.timeLeft != 0) {
+          this.speakInstruction(this.timeLeft.toString());
+        }
+      } else {
+        // Fin de phase
+        if (this.currentPhase === 'Active') {
+          this.currentPhase = 'Rest';
+          this.timeLeft = this.restTime;
+          this.speakInstruction(`Repos pendant ${this.restTime} secondes`);
+        } else {
+          if (this.currentRound < this.rounds) {
+            this.currentPhase = 'Active';
+            this.timeLeft = this.activeTime;
+            this.currentRound++;
+            this.speakInstruction('Boxez !');
+          } else {
+            this.stopTimer();
+          }
+        }
+      }
+    }, 1000);
   }
+
 
   // Reset the timer
   resetTimer() {
@@ -167,6 +213,10 @@ export class TimerComponent implements AfterViewInit {
 
   // Start the instruction timer
   private startInstructionTimer() {
+    if (this.noInstructions) {
+      clearInterval(this.instructionId); // Arrête les instructions si désactivées
+      return;
+    }
     this.instructionTimer = setInterval(() => {
       if (this.currentPhase === 'Active') {
         const randomValue = Math.floor(
@@ -179,6 +229,9 @@ export class TimerComponent implements AfterViewInit {
 
   // Use SpeechSynthesis to give oral instructions
   private speakInstruction(text: string) {
+    if (this.noInstructions) {
+      return; // Ne joue aucune instruction si "Aucune instruction" est activée
+    }
     const utterance = new SpeechSynthesisUtterance(text);
 
     // Définit la voix si elle est sélectionnée
