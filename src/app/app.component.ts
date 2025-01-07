@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TimerComponent } from '../src/component/timer/timer.component';
+import { TimerComponent } from '../component/timer/timer.component';
 
 @Component({
   selector: 'app-root',

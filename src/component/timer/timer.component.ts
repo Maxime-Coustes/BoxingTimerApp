@@ -124,7 +124,7 @@ export class TimerComponent implements AfterViewInit {
         this.timeLeft--;
 
         // Décompte vocal pour les 5 dernières secondes de repos countdown
-        if (this.timeLeft <= 5 && this.timeLeft != 0) {
+        if (this.currentPhase !== 'Active' && this.timeLeft <= 5 && this.timeLeft != 0) {
           this.speakInstruction(this.timeLeft.toString());
         }
       } else {
@@ -139,7 +139,8 @@ export class TimerComponent implements AfterViewInit {
             this.timeLeft = this.activeTime;
             this.currentRound++;
             this.speakInstruction('Boxez !');
-          } else {
+          } else if(this.currentRound == this.rounds) {
+            this.speakInstruction(' DING DING DING Workout Complete !');
             this.stopTimer();
           }
         }
@@ -185,9 +186,16 @@ export class TimerComponent implements AfterViewInit {
       } else {
         // End all rounds
         this.resetTimer();
+        this.speakInstruction('Workout Complete!');
         alert('Workout Complete!');
       }
     }
+  }
+
+  private finishWorkout() {
+    this.resetTimer();
+    this.speakInstruction('Workout Complete!');
+    alert('Workout Complete!');
   }
 
   pauseTimer() {
