@@ -6,20 +6,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ClockComponent } from "../clock/clock.component";
 
 @Component({
   selector: 'app-timer',
   standalone: true,
   imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule,
-    MatTabsModule],
+    MatTabsModule, ClockComponent],
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements AfterViewInit {
 
-  activeTime: number = 180; // Default: 3 minutes
-  restTime: number = 60;   // Default: 1 minute
-  rounds: number = 3;      // Default: 3 rounds
+  activeTime: number = 5; // Default: 3 minutes
+  restTime: number = 5;   // Default: 1 minute
+  rounds: number = 1;      // Default: 3 rounds
 
   // Timer state
   timeLeft: number = 0;
@@ -33,7 +34,7 @@ export class TimerComponent implements AfterViewInit {
   instructionId: any; // Pour l'instruction répétée
 
   // Configuration des instructions
-  instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
+  instructionInterval = 10; // Intervalle par défaut (toutes les 10 secondes)
   instructionMinValue = 1; // Valeur min du chiffre prononcé
   instructionMaxValue = 6; // Valeur max du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
