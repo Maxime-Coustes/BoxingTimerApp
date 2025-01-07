@@ -18,9 +18,9 @@ import { VoiceService } from '../../../app/shared/voices/voice.service';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements AfterViewInit {
-  activeTime: number = 5; // Default: 3 minutes
-  restTime: number = 5;   // Default: 1 minute
-  rounds: number = 1;      // Default: 3 rounds
+  activeTime: number = 8; // Default: 3 minutes
+  restTime: number = 8;   // Default: 1 minute
+  rounds: number = 2;      // Default: 3 rounds
 
   // Timer state
   timeLeft: number = 0;
@@ -34,7 +34,7 @@ export class TimerComponent implements AfterViewInit {
   instructionId: any; // Pour l'instruction répétée
 
   // Configuration des instructions
-  instructionInterval = 10; // Intervalle par défaut (toutes les 10 secondes)
+  instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
   instructionMinValue = 1; // Valeur min du chiffre prononcé
   instructionMaxValue = 6; // Valeur max du chiffre prononcé
   private instructionTimer: any;    // Timer pour les instructions orales
@@ -53,11 +53,6 @@ export class TimerComponent implements AfterViewInit {
     if (this.voiceService.selectedVoice) {
       this.voiceService.testVoice(this.voiceService.selectedVoice);
     }
-  }
-
-  calculateCircleOffset(): number {
-    const totalTime = this.totalTime || 1; // Éviter la division par zéro
-    return ((totalTime - this.timeLeft) / totalTime) * 100; // Proportion de temps écoulé
   }
 
   // Start the boxing timer
