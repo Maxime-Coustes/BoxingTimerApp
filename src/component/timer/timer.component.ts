@@ -139,7 +139,7 @@ export class TimerComponent implements AfterViewInit {
             this.timeLeft = this.activeTime;
             this.currentRound++;
             this.speakInstruction('Boxez !');
-          } else if(this.currentRound == this.rounds) {
+          } else if (this.currentRound == this.rounds) {
             this.speakInstruction(' DING DING DING Workout Complete !');
             this.stopTimer();
           }
@@ -190,12 +190,6 @@ export class TimerComponent implements AfterViewInit {
         alert('Workout Complete!');
       }
     }
-  }
-
-  private finishWorkout() {
-    this.resetTimer();
-    this.speakInstruction('Workout Complete!');
-    alert('Workout Complete!');
   }
 
   pauseTimer() {
@@ -252,5 +246,6 @@ export class TimerComponent implements AfterViewInit {
     // Parle
     window.speechSynthesis.speak(utterance);
   }
+
 
 }
