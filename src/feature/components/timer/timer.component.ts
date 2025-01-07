@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectorRef, } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ClockComponent } from "../clock/clock.component";
+import { VoiceService } from '../../../app/shared/voices/voice.service';
 
 @Component({
   selector: 'app-timer',
@@ -17,7 +18,6 @@ import { ClockComponent } from "../clock/clock.component";
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements AfterViewInit {
-
   activeTime: number = 5; // Default: 3 minutes
   restTime: number = 5;   // Default: 1 minute
   rounds: number = 1;      // Default: 3 rounds
@@ -44,41 +44,14 @@ export class TimerComponent implements AfterViewInit {
   totalTime: number = 0;
   noInstructions: boolean = false; // Désactiver les instructions si true
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(public voiceService: VoiceService) { }
 
   ngAfterViewInit() {
-    this.loadVoices();
+    this.voiceService.loadVoices();
   }
-
-  private loadVoices() {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-      this.availableVoices = window.speechSynthesis.getVoices()
-        .filter(voice => voice.lang.startsWith('fr-FR'))
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-      const userAgent = navigator.userAgent;
-      const isFirefox = userAgent.includes('Firefox');
-      const isChrome = userAgent.includes('Chrome') || userAgent.includes('Chromium');
-
-      if (this.availableVoices.length > 0 && !this.selectedVoice) {
-        if (isFirefox) {
-          this.selectedVoice = this.defaultVoice
-            ? this.defaultVoice
-            : this.availableVoices[0].name;
-        } else if (isChrome) {
-          ;
-          // Appliquer la voix par défaut uniquement
-          this.selectedVoice = this.defaultVoice || '';
-        } else {
-          // Pour les autres navigateurs, utiliser une stratégie de fallback
-          this.selectedVoice = this.availableVoices[0].name;
-        }
-      }
-
-      // Notifie Angular des modifications
-      this.cdr.detectChanges();
-    } else {
-      console.error('Speech synthesis not available or window is undefined');
+  testVoice() {
+    if (this.voiceService.selectedVoice) {
+      this.voiceService.testVoice(this.voiceService.selectedVoice);
     }
   }
 
@@ -86,25 +59,6 @@ export class TimerComponent implements AfterViewInit {
     const totalTime = this.totalTime || 1; // Éviter la division par zéro
     return ((totalTime - this.timeLeft) / totalTime) * 100; // Proportion de temps écoulé
   }
-
-
-  testVoice(voiceName: string) {
-    const utterance = new SpeechSynthesisUtterance('Bonjour, je suis votre assistant virtuel. 1, 3, 2, 5, 4');
-    // French (France)+Hugo (fr-FR) 
-    // Trouver la voix sélectionnée par son nom
-    const selectedVoice = this.availableVoices.find(v => v.name === voiceName);
-
-    if (selectedVoice) {
-      utterance.voice = selectedVoice; // Appliquer la voix sélectionnée
-    }
-    // Ajuster les paramètres de la voix
-    utterance.rate = 0.95; // Vitesse normale
-    utterance.pitch = 0.85; // Tonalité normale
-    utterance.volume = 1; // Volume maximum
-
-    window.speechSynthesis.speak(utterance); // Lancer la synthèse vocale
-  }
-
 
   // Start the boxing timer
   startBoxingTimer() {

@@ -3,7 +3,7 @@
         <mat-tab label="Voix" *ngIf="availableVoices.length > 0">
             <div>
                 <ul>
-                    <li *ngFor="let voice of availableVoices" (click)="testVoice(voice.name)">
+                    <li *ngFor="let voice of availableVoices" (click)="testVoice()">
                         {{ voice.name }} ({{ voice.lang }})
                     </li>
                 </ul>
