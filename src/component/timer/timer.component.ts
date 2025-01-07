@@ -116,13 +116,14 @@ export class TimerComponent implements AfterViewInit {
     // Message vocal pour le début
     if (this.currentPhase === 'Active') {
       this.speakInstruction(`Boxez !`);
+      this.startInstructionTimer();
     }
 
     this.timer = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
 
-        // Décompte vocal pour les 5 dernières secondes de repos
+        // Décompte vocal pour les 5 dernières secondes de repos countdown
         if (this.timeLeft <= 5 && this.timeLeft != 0) {
           this.speakInstruction(this.timeLeft.toString());
         }
