@@ -1,22 +1,44 @@
-<div>
-  <button (click)="selectClock('clock1')">Select Clock 1 (1 min)</button>
-  <button (click)="selectClock('clock2')">Select Clock 2 (3 min)</button>
-  <button (click)="selectClock('clock3')">Select Clock 3 (7 min)</button>
-</div>
+<div class="regular-timer-container">
+  <div class="timers-list">
+    <!-- Liste des timers -->
+    <div 
+      *ngFor="let id of objectKeys(clockInstances)" 
+      (click)="selectClock(id)"
+      [class.selected]="selectedClockId === id" 
+      class="timer-item">
+      <h3>Timer: {{ id }}</h3>
+      <p>Durée: {{ clockInstances[id].timeLeft }} secondes</p>
+      <p>Round: {{ clockInstances[id].currentRound }} / {{ clockInstances[id].rounds }}</p>
+    </div>
+  </div>
 
-<div>
-  <button (click)="play()">Play</button>
-  <button (click)="pause()">Pause</button>
-  <button (click)="restart()">Restart</button>
-</div>
+  <div class="timer-actions" *ngIf="selectedClockId">
+    <!-- Actions sur le timer sélectionné -->
+    <button mat-raised-button color="primary" (click)="play()">
+      <!-- <mat-icon>play_arrow</mat-icon> -->
+      Démarrer
+    </button>
+    <button mat-raised-button color="accent" (click)="pause()">
+      <!-- <mat-icon>pause</mat-icon> -->
+      Pause
+    </button>
+    <button mat-raised-button color="warn" (click)="stop()">
+      <!-- <mat-icon>stop</mat-icon> -->
+      Stop
+    </button>
+  </div>
 
-<!-- Afficher chaque horloge -->
-<div *ngFor="let id of objectKeys(clockInstances)">
-  <clock
-    [rounds]="clockInstances[id].rounds"
-    [currentRound]="clockInstances[id].currentRound"
-    [timeLeft]="clockInstances[id].timeLeft"
-    [currentPhase]="clockInstances[id].currentPhase"
-  ></clock>
-</div>
+  <div class="timer-display" *ngIf="selectedClockId">
+    <!-- Affichage du timer sélectionné -->
+    <clock 
+      [rounds]="clockInstances[selectedClockId].rounds" 
+      [currentRound]="clockInstances[selectedClockId].currentRound"
+      [timeLeft]="clockInstances[selectedClockId].timeLeft" 
+      [currentPhase]="clockInstances[selectedClockId].currentPhase">
+    </clock>
+  </div>
 
+  <p *ngIf="!selectedClockId" class="no-selection">
+    Sélectionnez un timer pour afficher ses détails.
+  </p>
+</div>

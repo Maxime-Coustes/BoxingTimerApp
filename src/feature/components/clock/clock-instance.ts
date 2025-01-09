@@ -5,6 +5,12 @@ export class ClockInstance {
   currentPhase: string = 'Ready';
   private timer: any;
 
+  constructor(duration: number = 60) {
+    this.timeLeft = duration;  // Durée par défaut si aucun argument passé
+    this.currentRound = 1;
+    this.currentPhase = 'Idle';
+  }
+
   setRoundDuration(duration: number): void {
     this.timeLeft = duration * 60; // minutes en secondes
   }
