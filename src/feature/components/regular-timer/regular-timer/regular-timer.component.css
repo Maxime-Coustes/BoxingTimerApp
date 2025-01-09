@@ -1,0 +1,83 @@
+/* ==== Styles pour le mat-tab-group ==== */
+.tab-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px; /* Espacement entre les onglets et le contenu */
+    width: 100%; /* S'étend sur toute la largeur disponible */
+    max-width: 800px; /* Largeur maximale */
+    margin: auto; /* Centré horizontalement */
+    /*background-color: #f9f9f9; /* Couleur de fond légère */
+    /*border-radius: 10px; /* Coins arrondis */
+    /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */ 
+  }
+  
+  /* Styles pour les onglets (mat-tab-label) */
+  .tab-group .mat-tab-label {
+    font-size: 1.2rem; /* Taille de police des labels */
+    font-weight: bold; /* Texte en gras */
+    color: #333; /* Couleur du texte */
+    padding: 10px 15px; /* Espacement interne */
+    text-align: center; /* Centre le texte */
+    border-radius: 5px; /* Coins arrondis */
+    transition: background-color 0.3s ease; /* Animation au survol */
+  }
+  
+  .tab-group .mat-tab-label:hover {
+    background-color: #e0e0e0; /* Couleur au survol */
+    cursor: pointer; /* Change le curseur au survol */
+  }
+  
+  /* Styles pour l'onglet actif */
+  .tab-group .mat-tab-label-active {
+    background-color: #d1d1d1; /* Couleur différente pour l'onglet actif */
+    color: #000; /* Couleur du texte de l'onglet actif */
+  }
+  
+  /* Contenu des onglets */
+  .tab-content {
+    width: 100%; /* Prend toute la largeur disponible */
+    text-align: center; /* Centré */
+    font-size: 1rem; /* Taille de police standard */
+    line-height: 1.5; /* Hauteur de ligne agréable à lire */
+    padding: 10px 15px; /* Espacement interne */
+    border-top: 1px solid #ccc; /* Ligne de séparation */
+  }
+  
+  /* ==== Styles pour les boutons (si nécessaire) ==== */
+  .tab-group button {
+    flex: 0 0 auto; /* Taille fixe */
+    width: 120px; /* Largeur des boutons */
+    height: 40px; /* Hauteur des boutons */
+    font-size: 1rem; /* Taille du texte */
+    color: white; /* Texte blanc */
+    background-color: #007bff; /* Couleur primaire */
+    border: none; /* Supprime les bordures */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    transition: background-color 0.3s ease; /* Animation au survol */
+  }
+  
+  .tab-group button:hover {
+    background-color: #0056b3; /* Couleur au survol */
+    cursor: pointer; /* Change le curseur au survol */
+  }
+  
+  /* ==== Styles responsives ==== */
+  @media (max-width: 600px) {
+    .tab-group {
+      padding: 10px;
+      gap: 10px; /* Réduction de l'espacement */
+    }
+  
+    .tab-content {
+      font-size: 0.9rem; /* Réduction de la taille de la police */
+    }
+  
+    .tab-group button {
+      width: 100%; /* Boutons prenant toute la largeur */
+      max-width: 300px; /* Limite la largeur */
+    }
+  }
+  
