@@ -25,20 +25,20 @@
             <div>
                 <label>
                     Intervalle des instructions (secondes):
-                    <input type="number" [(ngModel)]="instructionInterval" min="1" [disabled]="noInstructions" />
+                    <input type="number" [(ngModel)]="instructionService.instructionInterval" min="1" [disabled]="instructionService.noInstructions" />
                 </label>
             </div>
             <div>
                 <label>
                     Valeur min / max des instructions:
                 </label>
-                <mat-slider min="1" max="10" step="1" showTickMarks discrete [disabled]="noInstructions">
-                    <input value="1" matSliderStartThumb [(ngModel)]="instructionMinValue " [disabled]="noInstructions">
-                    <input value="3" matSliderEndThumb [(ngModel)]="instructionMaxValue" [disabled]="noInstructions">
+                <mat-slider min="1" max="10" step="1" showTickMarks discrete [disabled]="instructionService.noInstructions">
+                    <input value="1" matSliderStartThumb [(ngModel)]="instructionService.instructionMinValue " [disabled]="instructionService.noInstructions">
+                    <input value="3" matSliderEndThumb [(ngModel)]="instructionService.instructionMaxValue" [disabled]="instructionService.noInstructions">
                 </mat-slider>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="noInstructions" [(ngModel)]="noInstructions" />
+                <input type="checkbox" id="noInstructions" [(ngModel)]="instructionService.noInstructions" />
                 <label for="noInstructions">Aucune instruction</label>
             </div>
 
