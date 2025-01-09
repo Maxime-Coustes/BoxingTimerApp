@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ClockService } from '../../clock/clock.service';
 import { ClockInstance } from '../../clock/clock-instance';
 import { ClockComponent } from '../../clock/clock.component';
@@ -8,13 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CustomTimerComponent } from '../../../../app/shared/custom-timer/custom-timer.component';
 
 
 @Component({
   selector: 'regular-timer',
   templateUrl: './regular-timer.component.html',
   styleUrls: ['./regular-timer.component.css'],
-  imports: [ClockComponent, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule, MatTabsModule]
+  imports: [ClockComponent, CommonModule, MatSliderModule, MatButtonModule, 
+    MatIconModule, MatExpansionModule, MatTabsModule, CustomTimerComponent]
 })
 export class RegularTimerComponent {
   clockInstances: { [id: string]: ClockInstance } = {};  // Stocker les instances de ClockInstance
@@ -51,27 +53,22 @@ export class RegularTimerComponent {
 
   selectClock(id: string): void {
     this.selectedClockId = id;
-    console.log(`Clock ${id} selected`);
-    console.log('Configuration initiale :', this.initialConfigurations[id]);
   }
 
   play(): void {
     if (this.selectedClockId) {
       this.clockInstances[this.selectedClockId]?.startClock();
-      console.log(`Play clock ${this.selectedClockId}`);
     }
   }
 
   pause(): void {
     if (this.selectedClockId) {
       this.clockInstances[this.selectedClockId]?.stopClock();
-      console.log(`Pause clock ${this.selectedClockId}`);
     }
   }
 
   stop(): void {
     if (!this.selectedClockId) {
-      console.error('Aucun timer sélectionné.');
       return;
     }
 
@@ -81,7 +78,6 @@ export class RegularTimerComponent {
     const initialConfig = this.initialConfigurations[this.selectedClockId];
 
     if (!initialConfig) {
-      console.error('Configuration initiale introuvable pour le timer', this.selectedClockId);
       return;
     }
 
@@ -89,8 +85,6 @@ export class RegularTimerComponent {
     selectedTimer.timeLeft = initialConfig.duration;
     selectedTimer.currentRound = 1;
     selectedTimer.currentPhase = 'Idle';
-
-    console.log('Timer réinitialisé :', initialConfig);
   }
 
   get objectKeys(): (obj: object) => string[] {

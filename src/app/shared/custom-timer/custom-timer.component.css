@@ -1,0 +1,47 @@
+.custom-timer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .time-wheel {
+    text-align: center;
+    position: relative;
+    width: 120px;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .time-wheel-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .time-wheel-body {
+    height: 140px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .time-option {
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .time-option.selected {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  

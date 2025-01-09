@@ -1,16 +1,14 @@
 <div class="regular-timer-container">
   <div class="timers-list">
     <!-- Liste des timers -->
-    <div 
-      *ngFor="let id of objectKeys(clockInstances)" 
-      (click)="selectClock(id)"
-      [class.selected]="selectedClockId === id" 
-      class="timer-item">
-      <h3>Timer: {{ id }}</h3>
+    <div *ngFor="let id of objectKeys(clockInstances)" (click)="selectClock(id)"
+      [class.selected]="selectedClockId === id" class="timer-item">
+      <!-- <h3>Timer: {{ id }}</h3> -->
       <p>Durée: {{ clockInstances[id].timeLeft }} secondes</p>
-      <p>Round: {{ clockInstances[id].currentRound }} / {{ clockInstances[id].rounds }}</p>
+      <!-- <p>Round: {{ clockInstances[id].currentRound }} / {{ clockInstances[id].rounds }}</p> -->
     </div>
   </div>
+  <custom-timer></custom-timer>
 
   <div class="timer-actions" *ngIf="selectedClockId">
     <!-- Actions sur le timer sélectionné -->
@@ -30,15 +28,14 @@
 
   <div class="timer-display" *ngIf="selectedClockId">
     <!-- Affichage du timer sélectionné -->
-    <clock 
-      [rounds]="clockInstances[selectedClockId].rounds" 
+    <clock [rounds]="clockInstances[selectedClockId].rounds"
       [currentRound]="clockInstances[selectedClockId].currentRound"
-      [timeLeft]="clockInstances[selectedClockId].timeLeft" 
+      [timeLeft]="clockInstances[selectedClockId].timeLeft"
       [currentPhase]="clockInstances[selectedClockId].currentPhase">
     </clock>
   </div>
 
-  <p *ngIf="!selectedClockId" class="no-selection">
+  <!-- <p *ngIf="!selectedClockId" class="no-selection">
     Sélectionnez un timer pour afficher ses détails.
-  </p>
+  </p> -->
 </div>
