@@ -16,8 +16,13 @@ export class InstructionsService {
 
   constructor(public voiceService: VoiceService) { }
 
-  // Start the instruction timer
-  public startInstructionTimer(currentPhase: string) {
+  /**
+   * 
+   * @param currentPhase 
+   * @returns void
+   * Start the instruction timer 
+   */
+  public startInstructionTimer(currentPhase: string): void {
     if (this.noInstructions) {
       clearInterval(this.instructionId); // Arrête les instructions si désactivées
       return;
@@ -32,8 +37,13 @@ export class InstructionsService {
     }, this.instructionInterval * 1000);
   }
 
-  // Use SpeechSynthesis to give oral instructions
-  public speakInstruction(text: string) {
+  /**
+   * 
+   * @param text 
+   * @returns void
+   * Use SpeechSynthesis to give oral instructions 
+   */
+  public speakInstruction(text: string): void {
     if (this.noInstructions) {
       return; // Ne joue aucune instruction si "Aucune instruction" est activée
     }
