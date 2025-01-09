@@ -6,5 +6,7 @@
             {{ timeLeft }}
         </text>
     </svg>
-    <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
+    <div *ngIf="true == displayRound">
+        <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
+    </div>
 </div>
