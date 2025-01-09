@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RegularTimerComponent } from '../feature/components/regular-timer/regular-timer/regular-timer.component';
 import { BoxingTimerComponent } from '../feature/components/boxingTimer/boxing-timer.component';
 

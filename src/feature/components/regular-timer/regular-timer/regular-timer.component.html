@@ -1,11 +1,22 @@
-<mat-tab-group class="tab-group">
-    <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
-      <ng-template mat-tab-label>
-        {{ tab.label }}
-      </ng-template>
-      <div class="tab-content">
-        {{ tab.content }}
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-  
+<div>
+  <button (click)="selectClock('clock1')">Select Clock 1 (1 min)</button>
+  <button (click)="selectClock('clock2')">Select Clock 2 (3 min)</button>
+  <button (click)="selectClock('clock3')">Select Clock 3 (7 min)</button>
+</div>
+
+<div>
+  <button (click)="play()">Play</button>
+  <button (click)="pause()">Pause</button>
+  <button (click)="restart()">Restart</button>
+</div>
+
+<!-- Afficher chaque horloge -->
+<div *ngFor="let id of objectKeys(clockInstances)">
+  <clock
+    [rounds]="clockInstances[id].rounds"
+    [currentRound]="clockInstances[id].currentRound"
+    [timeLeft]="clockInstances[id].timeLeft"
+    [currentPhase]="clockInstances[id].currentPhase"
+  ></clock>
+</div>
+

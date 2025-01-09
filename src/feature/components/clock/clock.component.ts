@@ -1,24 +1,38 @@
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTabsModule } from '@angular/material/tabs';
+import { ClockInstance } from './clock-instance';  // Assure-toi que le chemin est correct
 
 @Component({
-    selector: 'clock',
-    standalone: true,
-    imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule,
-        MatTabsModule],
-    templateUrl: './clock.component.html',
-    styleUrls: ['./clock.component.css']
+  selector: 'clock',
+  templateUrl: './clock.component.html',
+  styleUrls: ['./clock.component.css']
 })
 export class ClockComponent {
-    @Input() rounds: number = 0;
-    @Input() currentRound: number = 0;
-    @Input() timeLeft: number = 0;
-    @Input() currentPhase: string = '';
+  @Input() clockInstance?: ClockInstance;  // Marquer comme optionnelle
+  @Input() rounds?: number = 0;
+  @Input() currentRound?: number = 0;
+  @Input() timeLeft?: number = 0;
+  @Input() currentPhase?: string = '';
+
+  constructor() {
+    // Ne pas initialiser ici, car l'instance est fournie par le parent.
+  }
+
+  // Méthodes d'interaction avec l'horloge en utilisant l'instance ClockInstance
+
+  play() {
+    this.clockInstance?.startClock();  // Utilisation de l'optional chaining
+  }
+
+  pause() {
+    this.clockInstance?.stopClock();  // Utilisation de l'optional chaining
+  }
+
+  restart() {
+    this.clockInstance?.resetClock();  // Utilisation de l'optional chaining
+  }
+
+  resume() {
+    this.clockInstance?.startClock();  // Utilisation de l'optional chaining
+  }
 
 }
