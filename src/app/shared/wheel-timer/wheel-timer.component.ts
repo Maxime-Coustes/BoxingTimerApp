@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ClockComponent } from '../../../feature/components/clock/clock.component';
+import { VoiceService } from '../voices/voice.service';
+import { InstructionsService } from '../instructions/instructions.service';
 
 
 
@@ -12,6 +14,8 @@ import { ClockComponent } from '../../../feature/components/clock/clock.componen
     imports: [CommonModule, MatIconModule, ClockComponent]
 })
 export class WheelTimer {
+
+    constructor(public voiceService: VoiceService, public instructionService: InstructionsService) { }
 
     hours = Array.from({ length: 24 }, (_, i) => i); // de 0 à 23
     minutes = Array.from({ length: 60 }, (_, i) => i); // de 0 à 59
@@ -46,13 +50,29 @@ export class WheelTimer {
             this.selectedHour = value;
         } else if (unit === 'minutes') {
             this.selectedMinute = value;
+            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
+                this.instructionService.speakInstruction(
+                    `Minuteur choisi: ${this.selectedMinute} minutes et ${this.selectedSecond} secondes`
+                );
+            } else if (this.selectedMinute !== 0) {
+                this.instructionService.speakInstruction(`Minuteur choisi: ${this.selectedMinute} minutes`);
+            }
         } else if (unit === 'seconds') {
             this.selectedSecond = value;
+            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
+                this.instructionService.speakInstruction(
+                    `Minuteur choisi: ${this.selectedMinute} minutes et ${this.selectedSecond} secondes`
+                );
+            } else if (this.selectedSecond !== 0) {
+                this.instructionService.speakInstruction(`Minuteur choisi: ${this.selectedSecond} secondes`);
+            }
         }
     }
+    
 
     selectAuto(value: number) {
         this.selectedMinute = value;
+        this.instructionService.speakInstruction(`Minuteur choisie: ${this.selectedMinute} minutes`);
     }
 
     startCustomTimer() {
@@ -68,6 +88,11 @@ export class WheelTimer {
             this.remainingTimeInSeconds = this.selectedHour * 3600 + this.selectedMinute * 60 + this.selectedSecond;
             this.displayTime = this.formatTime(this.remainingTimeInSeconds);
             this.runTimer();
+            this.instructionService.speakInstruction(
+                `Minuteur lancé: ${this.selectedMinute !== 0 ?
+                    `${this.selectedMinute} minutes` :
+                    `${this.selectedSecond} secondes`}`
+            );
         }
     }
 
