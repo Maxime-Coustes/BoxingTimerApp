@@ -51,6 +51,10 @@ export class CustomTimerComponent {
         }
     }
 
+    selectAuto(value: number) {
+        this.selectedMinute = value;
+    }
+
     startCustomTimer() {
         if (this.isPaused) {
             // Reprendre à partir de la pause

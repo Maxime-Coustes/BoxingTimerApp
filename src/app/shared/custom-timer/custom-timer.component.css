@@ -1,19 +1,26 @@
+/* Conteneur principal pour le timer personnalisé */
 .custom-timer-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Conteneur pour les roues de temps */
 .time-wheel-container {
   display: flex;
-  justify-content: space-between; /* Espacement égal entre chaque roue de temps */
-  width: 100%; /* On occupe toute la largeur disponible */
-  max-width: 600px; /* Limite la largeur des time-wheels */
+  justify-content: space-between;
+  /* Espacement égal entre chaque roue de temps */
+  width: 100%;
+  /* On occupe toute la largeur disponible */
+  max-width: 600px;
+  /* Limite la largeur des time-wheels */
   margin-bottom: 20px;
 }
 
+/* Style individuel pour chaque roue de temps */
 .time-wheel {
-  flex: 1; /* Chaque roue occupe un tiers de la largeur disponible */
+  flex: 1;
+  /* Chaque roue occupe un tiers de la largeur disponible */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -23,11 +30,13 @@
   align-items: center;
 }
 
+/* En-tête de chaque roue de temps */
 .time-wheel-header {
   font-size: 18px;
   font-weight: bold;
 }
 
+/* Corps de chaque roue de temps */
 .time-wheel-body {
   display: flex;
   flex-direction: column;
@@ -35,27 +44,79 @@
   max-height: 200px;
 }
 
+/* Option individuelle dans la roue de temps */
 .time-option {
   padding: 5px;
   cursor: pointer;
 }
 
+/* Option sélectionnée dans la roue de temps */
 .time-option.selected {
   background-color: #f0f0f0;
 }
 
+/* Conteneur pour les actions du timer (boutons) */
 .timer-actions {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
+/* Boutons des actions */
 .timer-actions button {
   margin: 5px;
 }
 
+/* Affichage du temps restant */
 .timer-display {
   margin-top: 20px;
   text-align: center;
   font-size: 20px;
 }
+
+
+/* Conteneur pour les suggestions de durée */
+.suggestion-timer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem; /* Ajout d'un espace sous les suggestions */
+}
+
+/* Style pour chaque suggestion de durée */
+.timer-item {
+  padding: 0.5rem; /* Réduction des espaces internes */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  flex: 1;
+  max-width: 100px; /* Limite la largeur des boutons */
+  transition: transform 0.2s, background-color 0.2s;
+  font-size: 0.9rem; /* Réduction de la taille de la police */
+}
+
+/* Style pour le container des roues */
+
+.time-wheel-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px; /* Ajout d'un espace avant la roue */
+  margin-bottom: 20px;
+}
+
+/* Style pour chaque roue */
+.time-wheel {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

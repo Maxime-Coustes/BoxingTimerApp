@@ -1,43 +1,48 @@
-<div class="custom-timer-container">
+  <div class="suggestion-timer-container">
+    <div class="timer-item" (click)="selectAuto(3)">
+      <p>Durée: 3mn</p>
+    </div>
+    <div class="timer-item" (click)="selectAuto(5)">
+      <p>Durée: 5mn</p>
+    </div>
+    <div class="timer-item" (click)="selectAuto(7)">
+      <p>Durée: 7mn</p>
+    </div>
+  </div>
+  <div class="custom-timer-container">
     <!-- Sélectionner la durée du timer -->
     <div class="time-wheel-container">
       <div class="time-wheel" (wheel)="updateTime($event, 'hours')">
         <div class="time-wheel-header">Heures</div>
         <div class="time-wheel-body">
-          <div *ngFor="let hour of hours" 
-               [class.selected]="hour === selectedHour"
-               (click)="selectTime(hour, 'hours')"
-               class="time-option">
+          <div *ngFor="let hour of hours" [class.selected]="hour === selectedHour" (click)="selectTime(hour, 'hours')"
+            class="time-option">
             {{ hour }}
           </div>
         </div>
       </div>
-  
+
       <div class="time-wheel" (wheel)="updateTime($event, 'minutes')">
         <div class="time-wheel-header">Minutes</div>
         <div class="time-wheel-body">
-          <div *ngFor="let minute of minutes"
-               [class.selected]="minute === selectedMinute"
-               (click)="selectTime(minute, 'minutes')"
-               class="time-option">
+          <div *ngFor="let minute of minutes" [class.selected]="minute === selectedMinute"
+            (click)="selectTime(minute, 'minutes')" class="time-option">
             {{ minute }}
           </div>
         </div>
       </div>
-  
+
       <div class="time-wheel" (wheel)="updateTime($event, 'seconds')">
         <div class="time-wheel-header">Secondes</div>
         <div class="time-wheel-body">
-          <div *ngFor="let second of seconds"
-               [class.selected]="second === selectedSecond"
-               (click)="selectTime(second, 'seconds')"
-               class="time-option">
+          <div *ngFor="let second of seconds" [class.selected]="second === selectedSecond"
+            (click)="selectTime(second, 'seconds')" class="time-option">
             {{ second }}
           </div>
         </div>
       </div>
     </div>
-  
+
     <!-- Boutons sous le time-wheel -->
     <div class="timer-actions">
       <button mat-raised-button color="primary" (click)="startCustomTimer()" [disabled]="isTimerRunning">
@@ -53,17 +58,12 @@
         Stop
       </button>
     </div>
-  
+
     <!-- Affichage du timer -->
     <div class="timer-display">
-      <clock 
-        [rounds]="1" 
-        [currentRound]="1"
-        [timeLeft]="remainingTimeInSeconds" 
-        [currentPhase]="'Running'"
+      <clock [rounds]="1" [currentRound]="1" [timeLeft]="remainingTimeInSeconds" [currentPhase]="'Running'"
         [displayRound]="false">
       </clock>
       <!-- <p>{{ displayTime }}</p> -->
     </div>
   </div>
-  
