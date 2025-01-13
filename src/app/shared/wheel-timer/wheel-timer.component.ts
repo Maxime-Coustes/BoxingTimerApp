@@ -68,7 +68,6 @@ export class WheelTimer {
             }
         }
     }
-    
 
     selectAuto(value: number) {
         this.selectedMinute = value;
