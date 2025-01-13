@@ -73,15 +73,25 @@
   text-align: center;
   font-size: 20px;
 }
-
-
 /* Conteneur pour les suggestions de durée */
 .suggestion-timer-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem; /* Ajout d'un espace sous les suggestions */
+  flex-direction: row; /* Les éléments sont alignés horizontalement */
+  justify-content: center; /* Centre le contenu horizontalement */
+  gap: 1rem; /* Ajoute de l'espace entre les éléments */
+  margin-top: 1rem;
+  margin-bottom: 1rem; /* Ajoute un espace en dessous du conteneur */
+  max-width: 600px; /* Limite la largeur maximale du conteneur */
+  margin-left: auto; /* Centre horizontalement sur les écrans larges */
+  margin-right: auto; /* Centre horizontalement sur les écrans larges */
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+}
+
+/* Ajout d'un léger espace en haut pour les écrans mobiles */
+@media (max-width: 768px) {
+  .suggestion-timer-container {
+    margin-top: 1rem; /* Ajoute un espace de 1rem en haut */
+  }
 }
 
 /* Style pour chaque suggestion de durée */

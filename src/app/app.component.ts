@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RegularTimerComponent } from '../feature/components/regular-timer/regular-timer/regular-timer.component';
+import { WheelTimer } from './shared/wheel-timer/wheel-timer.component';
 import { BoxingTimerComponent } from '../feature/components/boxingTimer/boxing-timer.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [CommonModule, BoxingTimerComponent, RegularTimerComponent],
+  imports: [CommonModule, BoxingTimerComponent, WheelTimer],
 
 })
 export class AppComponent {

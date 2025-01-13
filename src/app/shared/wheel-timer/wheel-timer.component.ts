@@ -6,12 +6,12 @@ import { ClockComponent } from '../../../feature/components/clock/clock.componen
 
 
 @Component({
-    selector: 'custom-timer',
-    templateUrl: './custom-timer.component.html',
-    styleUrls: ['./custom-timer.component.css'],
+    selector: 'wheel-timer',
+    templateUrl: './wheel-timer.component.html',
+    styleUrls: ['./wheel-timer.component.css'],
     imports: [CommonModule, MatIconModule, ClockComponent]
 })
-export class CustomTimerComponent {
+export class WheelTimer {
 
     hours = Array.from({ length: 24 }, (_, i) => i); // de 0 à 23
     minutes = Array.from({ length: 60 }, (_, i) => i); // de 0 à 59
