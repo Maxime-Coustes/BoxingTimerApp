@@ -94,6 +94,22 @@ export class WheelTimer {
             if (this.remainingTimeInSeconds > 0) {
                 this.remainingTimeInSeconds--;
                 this.displayTime = this.formatTime(this.remainingTimeInSeconds);
+                if (this.remainingTimeInSeconds <= 5 && this.remainingTimeInSeconds > 0) {
+                    this.instructionService.speakInstruction(this.remainingTimeInSeconds.toString());
+                }
+                if (this.remainingTimeInSeconds == 0) {
+                    if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
+                        this.instructionService.speakInstruction(
+                            `BipBipBip fin du minuteur de  ${this.selectedMinute !== 0 ?
+                                `${this.selectedMinute} minutes et ${this.selectedSecond} secondes` :
+                                `${this.selectedSecond} secondes`}`
+                        );
+                    } else {
+                        this.instructionService.speakInstruction(`BipBipBip fin du minuteur de ${this.selectedMinute !== 0 ?
+                            `${this.selectedMinute} minutes` :
+                            `${this.selectedSecond} secondes`}`);
+                    }
+                }
             } else {
                 clearInterval(this.timerId);
                 this.isTimerRunning = false;
