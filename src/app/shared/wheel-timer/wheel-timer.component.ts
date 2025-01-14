@@ -73,19 +73,8 @@ export class WheelTimer {
             this.remainingTimeInSeconds = this.selectedHour * 3600 + this.selectedMinute * 60 + this.selectedSecond;
             this.displayTime = this.formatTime(this.remainingTimeInSeconds);
             this.runTimer();
-            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
-                this.instructionService.speakInstruction(
-                    `Minuteur lancé: ${this.selectedMinute !== 0 ?
-                        `${this.selectedMinute} minutes et ${this.selectedSecond} secondes` :
-                        `${this.selectedSecond} secondes`}`
-                );
-            } else {
-                this.instructionService.speakInstruction(
-                    `Minuteur lancé: ${this.selectedMinute !== 0 ?
-                        `${this.selectedMinute} minutes` :
-                        `${this.selectedSecond} secondes`}`
-                );
-            }
+            const instruction = this.formatTimerInstruction(this.selectedMinute, this.selectedSecond);
+            this.instructionService.speakInstruction(`Minuteur lancé: ${instruction}`);
         }
     }
 
@@ -97,20 +86,11 @@ export class WheelTimer {
                 if (this.remainingTimeInSeconds <= 5 && this.remainingTimeInSeconds > 0) {
                     this.instructionService.speakInstruction(this.remainingTimeInSeconds.toString());
                 }
-                if (this.remainingTimeInSeconds == 0) {
-                    if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
-                        this.instructionService.speakInstruction(
-                            `BipBipBip fin du minuteur de  ${this.selectedMinute !== 0 ?
-                                `${this.selectedMinute} minutes et ${this.selectedSecond} secondes` :
-                                `${this.selectedSecond} secondes`}`
-                        );
-                    } else {
-                        this.instructionService.speakInstruction(`BipBipBip fin du minuteur de ${this.selectedMinute !== 0 ?
-                            `${this.selectedMinute} minutes` :
-                            `${this.selectedSecond} secondes`}`);
-                    }
+                if (this.remainingTimeInSeconds === 0) {
+                    const instruction = this.formatTimerInstruction(this.selectedMinute, this.selectedSecond);
+                    this.instructionService.speakInstruction(`BipBipBip fin du minuteur de ${instruction}`);
                 }
-            } else {
+            }  else {
                 clearInterval(this.timerId);
                 this.isTimerRunning = false;
             }
@@ -144,6 +124,18 @@ export class WheelTimer {
             this.isTimerRunning = false;
             this.isPaused = true;
             this.pausedTime = this.remainingTimeInSeconds;
+        }
+    }
+
+    private formatTimerInstruction(minutes: number, seconds: number): string {
+        if (minutes !== 0 && seconds !== 0) {
+            return `${minutes} minute${minutes > 1 ? 's' : ''} et ${seconds} seconde${seconds > 1 ? 's' : ''}`;
+        } else if (minutes !== 0) {
+            return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+        } else if (seconds !== 0) {
+            return `${seconds} seconde${seconds > 1 ? 's' : ''}`;
+        } else {
+            return 'aucune durée';
         }
     }
 }
