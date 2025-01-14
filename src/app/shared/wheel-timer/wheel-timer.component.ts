@@ -50,22 +50,8 @@ export class WheelTimer {
             this.selectedHour = value;
         } else if (unit === 'minutes') {
             this.selectedMinute = value;
-            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
-                this.instructionService.speakInstruction(
-                    `Minuteur choisi: ${this.selectedMinute} minutes et ${this.selectedSecond} secondes`
-                );
-            } else if (this.selectedMinute !== 0) {
-                this.instructionService.speakInstruction(`Minuteur choisi: ${this.selectedMinute} minutes`);
-            }
         } else if (unit === 'seconds') {
             this.selectedSecond = value;
-            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
-                this.instructionService.speakInstruction(
-                    `Minuteur choisi: ${this.selectedMinute} minutes et ${this.selectedSecond} secondes`
-                );
-            } else if (this.selectedSecond !== 0) {
-                this.instructionService.speakInstruction(`Minuteur choisi: ${this.selectedSecond} secondes`);
-            }
         }
     }
 
@@ -87,11 +73,19 @@ export class WheelTimer {
             this.remainingTimeInSeconds = this.selectedHour * 3600 + this.selectedMinute * 60 + this.selectedSecond;
             this.displayTime = this.formatTime(this.remainingTimeInSeconds);
             this.runTimer();
-            this.instructionService.speakInstruction(
-                `Minuteur lancé: ${this.selectedMinute !== 0 ?
-                    `${this.selectedMinute} minutes` :
-                    `${this.selectedSecond} secondes`}`
-            );
+            if (this.selectedMinute !== 0 && this.selectedSecond !== 0) {
+                this.instructionService.speakInstruction(
+                    `Minuteur lancé: ${this.selectedMinute !== 0 ?
+                        `${this.selectedMinute} minutes et ${this.selectedSecond} secondes` :
+                        `${this.selectedSecond} secondes`}`
+                );
+            } else {
+                this.instructionService.speakInstruction(
+                    `Minuteur lancé: ${this.selectedMinute !== 0 ?
+                        `${this.selectedMinute} minutes` :
+                        `${this.selectedSecond} secondes`}`
+                );
+            }
         }
     }
 
