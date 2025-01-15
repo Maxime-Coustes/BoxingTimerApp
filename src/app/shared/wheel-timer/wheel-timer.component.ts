@@ -174,7 +174,9 @@ export class WheelTimer {
     private formatTimerInstruction(hours: number, minutes: number, seconds: number): string {
         if (hours !== 0 && minutes !== 0 && seconds !== 0) {
             return `${hours} heure${minutes > 1 ? 's' : ''}, ${minutes} minute${minutes > 1 ? 's' : ''} et ${seconds} seconde${seconds > 1 ? 's' : ''}`;
-        } else if (minutes !== 0 && seconds !== 0) {
+        } else if (hours !== 0 && minutes !== 0) {
+            return `${hours} heure${minutes > 1 ? 's' : ''} et ${minutes} minute${minutes > 1 ? 's' : ''}`;
+        }else if (minutes !== 0 && seconds !== 0) {
             return `${minutes} minute${minutes > 1 ? 's' : ''} et ${seconds} seconde${seconds > 1 ? 's' : ''}`;
         } else if (hours !== 0) {
             return `${hours} heure${hours > 1 ? 's' : ''}`;
