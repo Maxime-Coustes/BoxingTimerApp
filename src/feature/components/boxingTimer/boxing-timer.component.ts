@@ -11,14 +11,14 @@ import { VoiceService } from '../../../app/shared/voices/voice.service';
 import { InstructionsService } from '../../../app/shared/instructions/instructions.service';
 
 @Component({
-  selector: 'app-timer',
+  selector: 'boxing-timer',
   standalone: true,
   imports: [FormsModule, CommonModule, MatSliderModule, MatButtonModule, MatIconModule, MatExpansionModule,
     MatTabsModule, ClockComponent],
-  templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  templateUrl: './boxing-timer.component.html',
+  styleUrls: ['./boxing-timer.component.css']
 })
-export class TimerComponent implements AfterViewInit {
+export class BoxingTimerComponent implements AfterViewInit {
   activeTime: number = 8; // Default: 3 minutes
   restTime: number = 8;   // Default: 1 minute
   rounds: number = 2;      // Default: 3 rounds

@@ -87,13 +87,7 @@
                 </button>
             </div>
 
-            <!-- timer display -->
-            <!-- <div class="timer-display" *ngIf="isRunning">
-                <h1>{{ currentPhase }} Time: {{ timeLeft }} seconds</h1>
-                <h2>Round: {{ currentRound }} / {{ rounds }}</h2>
-            </div> -->
-
-            <!-- test clock -->
+            <!-- display clock -->
             <clock [rounds]="rounds" [currentRound]="currentRound" [timeLeft]="timeLeft" [currentPhase]="currentPhase">
             </clock>
 
