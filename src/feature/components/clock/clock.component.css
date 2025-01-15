@@ -1,23 +1,38 @@
-/* Conteneur parent qui occupe toute la hauteur de l'écran */
-.circle-timer-container {
-    position: relative;
-    width: 100%;
-    height: 50vh; /* Cela occupe toute la hauteur de l'écran */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Le chronomètre circulaire (SVG) */
-  .circle-timer {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-  }
-  
-  .circle-timer text {
-    font-size: 1rem;
-  }
+/* Conteneur du texte affichant le temps */
+.time-display-container {
+  position: relative;
+  width: 100%;
+  height: 30vh; /* Occupe 30% de la hauteur de l'écran */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Ajouté pour empiler les éléments verticaux */
+}
+
+/* Le SVG contenant le texte */
+.time-display {
+  position: relative;
+  width: 70%;  /* Largeur relative au conteneur */
+  height: auto; /* Ajuste la hauteur automatiquement */
+  max-width: 200px;  /* Limite de taille maximale */
+  max-height: 200px; /* Limite de taille maximale */
+  margin-bottom: 20px;  /* Ajout d'un espace sous le texte */
+}
+
+/* Le texte dans le SVG */
+.time-display text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.01em;  /* Ajuster légèrement l'espacement */
+  transform: scaleX(1.01); /* Augmenter légèrement la largeur du texte */
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+
+/* Style pour l'affichage du round */
+h2 {
+  font-size: 1.5rem; /* Taille modérée pour les rounds */
+  text-align: center;
+  margin: 0;
+}
