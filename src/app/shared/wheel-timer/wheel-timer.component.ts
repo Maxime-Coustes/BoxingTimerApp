@@ -176,6 +176,8 @@ export class WheelTimer {
             return `${hours} heure${minutes > 1 ? 's' : ''}, ${minutes} minute${minutes > 1 ? 's' : ''} et ${seconds} seconde${seconds > 1 ? 's' : ''}`;
         } else if (minutes !== 0 && seconds !== 0) {
             return `${minutes} minute${minutes > 1 ? 's' : ''} et ${seconds} seconde${seconds > 1 ? 's' : ''}`;
+        } else if (hours !== 0) {
+            return `${hours} heure${hours > 1 ? 's' : ''}`;
         } else if (minutes !== 0) {
             return `${minutes} minute${minutes > 1 ? 's' : ''}`;
         } else if (seconds !== 0) {
