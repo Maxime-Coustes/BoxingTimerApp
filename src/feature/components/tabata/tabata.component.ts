@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClockComponent } from '../clock/clock.component';
+import { InstructionsService } from '../../../app/shared/instructions/instructions.service';
 
 @Component({
   selector: 'tabata',
@@ -9,6 +10,7 @@ import { ClockComponent } from '../clock/clock.component';
   styleUrls: ['./tabata.component.css'],
 })
 export class TabataComponent {
+  constructor(private instructionService: InstructionsService) { }
 
   tabataSequence = [
     {
@@ -16,7 +18,7 @@ export class TabataComponent {
       rounds: 1,
       phases: [
         { type: 'active', duration: 5 },
-        { type: 'rest', duration: 3 },
+        { type: 'rest', duration: 11 },
       ],
     },
     {
@@ -24,7 +26,7 @@ export class TabataComponent {
       rounds: 1,
       phases: [
         { type: 'active', duration: 5 },
-        { type: 'rest', duration: 3 },
+        { type: 'rest', duration: 11 },
       ],
     },
     {
@@ -113,20 +115,37 @@ export class TabataComponent {
   timer: any; // Référence pour le setInterval
 
   // Démarre le timer
-  startTabata() {
-    const currentPhase = this.tabataSequence[this.currentPhaseIndex];
+  // Démarre le timer
+startTabata() {
+  const currentPhase = this.tabataSequence[this.currentPhaseIndex];
+
+  this.timer = setInterval(() => {
+    // Récupère dynamiquement la sous-phase actuelle
     const currentSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
 
-    this.remainingTime = currentSubPhase.duration;
+    if (this.remainingTime > 0) {
+      this.remainingTime--;
 
-    this.timer = setInterval(() => {
-      if (this.remainingTime > 0) {
-        this.remainingTime--;
-      } else {
-        this.moveToNextSubPhaseOrRound();
+      // Décompte oral pour les 5 dernières secondes d'une phase de repos
+      if (currentSubPhase.type === 'rest' && this.remainingTime <= 5) {
+        console.log('REST during:', this.remainingTime); // Log pour vérifier
+        this.instructionService.speakInstruction(this.remainingTime.toString());
       }
-    }, 1000);
-  }
+    } else {
+      this.moveToNextSubPhaseOrRound();
+    }
+  }, 1000);
+
+  // Initialisation de la première sous-phase
+  const initialSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
+  this.remainingTime = initialSubPhase.duration;
+
+  // Énoncer le nom de la phase au début
+  this.instructionService.speakInstruction(
+    `${currentPhase.id} - ${initialSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+  );
+}
+
 
   // Arrête le timer
   stopTabata() {
@@ -140,15 +159,32 @@ export class TabataComponent {
     if (this.currentSubPhaseIndex < currentPhase.phases.length - 1) {
       // Passe à la sous-phase suivante
       this.currentSubPhaseIndex++;
-      this.remainingTime = currentPhase.phases[this.currentSubPhaseIndex].duration;
+      const nextSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
+      this.remainingTime = nextSubPhase.duration;
+
+      // Énoncer le nom de la prochaine sous-phase
+      this.instructionService.speakInstruction(
+        `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+      );
     } else if (this.currentRound < currentPhase.rounds) {
       // Passe au round suivant
       this.currentRound++;
       this.currentSubPhaseIndex = 0; // Recommence à la première sous-phase
-      this.remainingTime = currentPhase.phases[this.currentSubPhaseIndex].duration;
+      const firstSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
+      this.remainingTime = firstSubPhase.duration;
+
+      // Énoncer le début du round suivant
+      this.instructionService.speakInstruction(
+        `Round ${this.currentRound} - ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+      );
     } else if (currentPhase.endRest) {
       // Gère le repos final après la phase
       this.remainingTime = currentPhase.endRest;
+
+      this.instructionService.speakInstruction(
+        `Repos final de ${currentPhase.endRest} secondes`
+      );
+
       delete (currentPhase as any).endRest; // Repos final traité, on le supprime
     } else {
       // Passe à la phase suivante
@@ -164,9 +200,15 @@ export class TabataComponent {
       this.currentSubPhaseIndex = 0;
       const nextPhase = this.tabataSequence[this.currentPhaseIndex];
       this.remainingTime = nextPhase.phases[this.currentSubPhaseIndex].duration;
+
+      // Énoncer le début de la nouvelle phase
+      this.instructionService.speakInstruction(
+        `Nouvelle phase : ${nextPhase.id}`
+      );
     } else {
       // Fin de la séquence Tabata
       this.stopTabata();
+      this.instructionService.speakInstruction('Séquence terminée !');
       alert('Séquence terminée !');
     }
   }
