@@ -1,0 +1,120 @@
+.tabata-container {
+    text-align: center;
+  }
+  
+  
+  .timer-display h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .timer-display h2, .timer-display h3 {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .control-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .control-buttons button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .control-buttons button:first-child {
+    background-color: #4caf50; /* Green for Play */
+    color: white;
+  }
+  
+  .control-buttons button:last-child {
+    background-color: #f44336; /* Red for Stop */
+    color: white;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:active {
+    background-color: #003f7f;
+  }
+  
+  .tabata-workout {
+    margin: 20px;
+  }
+  
+  .workout-steps {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .workout-steps li {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .workout-steps li.active {
+    border-color: #007bff;
+    background-color: #e7f3ff;
+  }
+  
+  .workout-steps li.completed {
+    background-color: #dff0d8;
+    border-color: #4caf50;
+  }
+  
+  .phase-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .phase-number {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .phase-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .phase-details {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  

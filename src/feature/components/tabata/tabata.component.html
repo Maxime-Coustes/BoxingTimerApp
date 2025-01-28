@@ -1,0 +1,53 @@
+<!-- <h2>Tabata Boxing !</h2>
+<p>
+    <b>Échauffement:</b><br>
+    2 x (3mn active + 1mn repos) <br>
+    On met l'accent sur la technique sur le premier round.<br>
+    On ajoute quelques accélérations sur le deuxième pour être prêt au tabata.
+</p>
+<p>
+    <b>Début du tabata vitesse:</b><br>
+    4 x (8x 20sc ON & 10sc ACTIVE REST) 1mn Rest<br>
+    Focus vitesse, nombre de coups, garde haute tout le temps.<br>
+</p>
+<p>
+    <b>Début du travail en puissance:</b><br>
+    4 x (1mn ON & 30sc REST)<br>
+    Enchainements courts mais puissants, pour chaque coup.<br>
+</p>
+<p>
+    <b>Récupération</b>
+    3mn de boxe light, pour que le cardio redescende
+</p> -->
+<div class="tabata-workout">
+    <h2>Tabata Boxing !</h2>
+
+    <ul class="workout-steps">
+        <li *ngFor="let phase of tabataSequence; let index = index" [class.active]="index === currentPhaseIndex"
+            [class.completed]="index < currentPhaseIndex">
+            <div class="phase-header">
+                <span class="phase-number">{{ index + 1 }}</span>
+                <span class="phase-title">{{ phase.id }}</span>
+            </div>
+            <div class="phase-details" *ngIf="index === currentPhaseIndex">
+                <!-- <p><b>Rounds :</b> {{ phase.rounds }}</p> -->
+                <p *ngFor="let subPhase of phase.phases">
+                    <span *ngIf="subPhase.type === 'active'">- Active : {{ subPhase.duration }}s</span>
+                    <span *ngIf="subPhase.type === 'rest'">- Rest : {{ subPhase.duration }}s</span>
+                </p>
+                <p *ngIf="phase.endRest"><b>Rest after phase :</b> {{ phase.endRest }}s</p>
+
+                <!-- Timer Component -->
+                <clock [timeLeft]="remainingTime" [rounds]="phase.rounds" [currentRound]="currentRound"
+                    [currentPhase]="phase.id" [displayRound]="true">
+                </clock>
+            </div>
+            <!-- Buttons -->
+            <div class="control-buttons">
+                <button (click)="startTabata()">▶</button>
+                <button (click)="stopTabata()">⏹</button>
+                <button (click)="moveToNextPhase()">=></button>
+            </div>
+        </li>
+    </ul>
+</div>

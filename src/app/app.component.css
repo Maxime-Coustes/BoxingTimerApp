@@ -19,7 +19,7 @@
     scroll-behavior: smooth;
   }
 
-  .boxing-timer, .wheel-timer {
+  .boxing-timer, .wheel-timer, .tabata {
     flex: 0 0 auto;
     width: 100%;
     min-width: 300px;
