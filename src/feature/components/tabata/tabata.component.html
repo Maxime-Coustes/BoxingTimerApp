@@ -33,6 +33,7 @@
                 <!-- <p><b>Rounds :</b> {{ phase.rounds }}</p> -->
                 <p *ngFor="let subPhase of phase.phases">
                     <span *ngIf="subPhase.type === 'active'">- Active : {{ subPhase.duration }}s</span>
+                    <span *ngIf="subPhase.type === 'active' && subPhase.description">- {{ subPhase.description }}</span>
                     <span *ngIf="subPhase.type === 'rest'">- Rest : {{ subPhase.duration }}s</span>
                 </p>
                 <p *ngIf="phase.endRest"><b>Rest after phase :</b> {{ phase.endRest }}s</p>
