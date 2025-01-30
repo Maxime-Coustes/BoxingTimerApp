@@ -19,9 +19,9 @@ export class TabataComponent {
       phases: [
         { type: 'active', 
           description: 'On met l\'accent sur la technique sur le premier round', 
-          duration: 5
+          duration: 180
         },
-        { type: 'rest', duration: 11 },
+        { type: 'rest', duration: 60 },
       ],
     },
     {
@@ -30,8 +30,8 @@ export class TabataComponent {
       phases: [
         { type: 'active',
           description: 'On ajoute quelques accélérations sur ce round pour être prêt au tabata.', 
-          duration: 5 },
-        { type: 'rest', duration: 11 },
+          duration: 180 },
+        { type: 'rest', duration: 60 },
       ],
     },
     {
@@ -191,7 +191,7 @@ export class TabataComponent {
         );
       } else {
         this.instructionService.speakInstruction(
-          ` Repos pendant ${this.remainingTime} seconds`
+          ` Repos pendant ${this.remainingTime} secondes`
         );
       }
     } else if (this.currentRound < currentPhase.rounds) {
