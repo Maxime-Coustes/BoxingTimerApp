@@ -17,7 +17,10 @@ export class TabataComponent {
       id: 'Échauffement 1 sur 2', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 5 },
+        { type: 'active', 
+          description: 'On met l\'accent sur la technique sur le premier round', 
+          duration: 5
+        },
         { type: 'rest', duration: 11 },
       ],
     },
@@ -25,7 +28,9 @@ export class TabataComponent {
       id: 'Échauffement 2 sur 2', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 5 },
+        { type: 'active',
+          description: 'On ajoute quelques accélérations sur ce round pour être prêt au tabata.', 
+          duration: 5 },
         { type: 'rest', duration: 11 },
       ],
     },
@@ -33,7 +38,9 @@ export class TabataComponent {
       id: 'Tabata vitesse 1 sur 4', // Identifiant pour cette phase
       rounds: 8,
       phases: [
-        { type: 'active', duration: 20 },
+        { type: 'active',
+          description: 'Focus vitesse, nombre de coups, garde haute tout le temps',
+          duration: 20 },
         { type: 'rest', duration: 10 },
       ],
       endRest: 60, // 1mn de repos après ce bloc
@@ -42,7 +49,9 @@ export class TabataComponent {
       id: 'Tabata vitesse 2 sur 4', // Identifiant pour cette phase
       rounds: 8,
       phases: [
-        { type: 'active', duration: 20 },
+        { type: 'active',
+          description: 'Focus vitesse, nombre de coups, garde haute tout le temps',
+           duration: 20 },
         { type: 'rest', duration: 10 },
       ],
       endRest: 60, // 1mn de repos après ce bloc
@@ -51,7 +60,9 @@ export class TabataComponent {
       id: 'Tabata vitesse 3 sur 4', // Identifiant pour cette phase
       rounds: 8,
       phases: [
-        { type: 'active', duration: 20 },
+        { type: 'active',
+          description: 'Focus vitesse, nombre de coups, garde haute tout le temps',
+           duration: 20 },
         { type: 'rest', duration: 10 },
       ],
       endRest: 60, // 1mn de repos après ce bloc
@@ -60,7 +71,9 @@ export class TabataComponent {
       id: 'Tabata vitesse 4 sur 4', // Identifiant pour cette phase
       rounds: 8,
       phases: [
-        { type: 'active', duration: 20 },
+        { type: 'active',
+          description: 'Focus vitesse, nombre de coups, garde haute tout le temps',
+           duration: 20 },
         { type: 'rest', duration: 10 },
       ],
       endRest: 60, // 1mn de repos après ce bloc
@@ -69,7 +82,9 @@ export class TabataComponent {
       id: 'Puissance 1 sur 4', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 60 },
+        { type: 'active',
+          description: 'Enchainements courts mais puissants, pour chaque coup.',
+          duration: 60 },
         { type: 'rest', duration: 30 },
       ],
     },
@@ -77,7 +92,9 @@ export class TabataComponent {
       id: 'Puissance 2 sur 4', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 60 },
+        { type: 'active',
+          description: 'Enchainements courts mais puissants, pour chaque coup.',
+           duration: 60 },
         { type: 'rest', duration: 30 },
       ],
     },
@@ -85,7 +102,9 @@ export class TabataComponent {
       id: 'Puissance 3 sur 4', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 60 },
+        { type: 'active',
+          description: 'Enchainements courts mais puissants, pour chaque coup.',
+           duration: 60 },
         { type: 'rest', duration: 30 },
       ],
     },
@@ -93,7 +112,9 @@ export class TabataComponent {
       id: 'Puissance 4 sur 4', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 60 },
+        { type: 'active',
+          description: 'Enchainements courts mais puissants, pour chaque coup.',
+           duration: 60 },
         { type: 'rest', duration: 30 },
       ],
     },
@@ -101,7 +122,9 @@ export class TabataComponent {
       id: 'Cooldown 3 minutes', // Identifiant pour cette phase
       rounds: 1,
       phases: [
-        { type: 'active', duration: 180 },
+        { type: 'active',
+          description: 'boxe light, pour que le cardio redescende.',
+           duration: 180 },
         { type: 'rest', duration: 0 }, // fin du workout
       ],
       // endRest: 0, // Repos final après tous les rounds de cette phase
@@ -115,36 +138,35 @@ export class TabataComponent {
   timer: any; // Référence pour le setInterval
 
   // Démarre le timer
-  // Démarre le timer
-startTabata() {
-  const currentPhase = this.tabataSequence[this.currentPhaseIndex];
+  startTabata() {
+    const currentPhase = this.tabataSequence[this.currentPhaseIndex];
 
-  this.timer = setInterval(() => {
-    // Récupère dynamiquement la sous-phase actuelle
-    const currentSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
+    this.timer = setInterval(() => {
+      // Récupère dynamiquement la sous-phase actuelle
+      const currentSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
 
-    if (this.remainingTime > 0) {
-      this.remainingTime--;
+      if (this.remainingTime > 0) {
+        this.remainingTime--;
 
-      // Décompte oral pour les 5 dernières secondes d'une phase de repos
-      if (currentSubPhase.type === 'rest' && this.remainingTime <= 5) {
-        console.log('REST during:', this.remainingTime); // Log pour vérifier
-        this.instructionService.speakInstruction(this.remainingTime.toString());
+        // Décompte oral pour les 5 dernières secondes d'une phase de repos
+        if (currentSubPhase.type === 'rest' && this.remainingTime <= 5) {
+          console.log('REST during:', this.remainingTime); // Log pour vérifier
+          this.instructionService.speakInstruction(this.remainingTime.toString());
+        }
+      } else {
+        this.moveToNextSubPhaseOrRound();
       }
-    } else {
-      this.moveToNextSubPhaseOrRound();
-    }
-  }, 1000);
+    }, 1000);
 
-  // Initialisation de la première sous-phase
-  const initialSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
-  this.remainingTime = initialSubPhase.duration;
+    // Initialisation de la première sous-phase
+    const initialSubPhase = currentPhase.phases[this.currentSubPhaseIndex];
+    this.remainingTime = initialSubPhase.duration;
 
-  // Énoncer le nom de la phase au début
-  this.instructionService.speakInstruction(
-    `${currentPhase.id} - ${initialSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
-  );
-}
+    // Énoncer le nom de la phase au début
+    this.instructionService.speakInstruction(
+      `${currentPhase.id} - ${initialSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+    );
+  }
 
 
   // Arrête le timer
@@ -163,9 +185,15 @@ startTabata() {
       this.remainingTime = nextSubPhase.duration;
 
       // Énoncer le nom de la prochaine sous-phase
-      this.instructionService.speakInstruction(
-        `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
-      );
+      if (nextSubPhase.type === 'active') {
+        this.instructionService.speakInstruction(
+          `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+        );
+      } else {
+        this.instructionService.speakInstruction(
+          ` Repos pendant ${this.remainingTime} seconds`
+        );
+      }
     } else if (this.currentRound < currentPhase.rounds) {
       // Passe au round suivant
       this.currentRound++;
@@ -175,7 +203,7 @@ startTabata() {
 
       // Énoncer le début du round suivant
       this.instructionService.speakInstruction(
-        `Round ${this.currentRound} - ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+        `Round ${this.currentRound} -  ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
       );
     } else if (currentPhase.endRest) {
       // Gère le repos final après la phase
