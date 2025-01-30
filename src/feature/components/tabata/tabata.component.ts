@@ -185,9 +185,15 @@ export class TabataComponent {
       this.remainingTime = nextSubPhase.duration;
 
       // Énoncer le nom de la prochaine sous-phase
-      this.instructionService.speakInstruction(
-        `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
-      );
+      if (nextSubPhase.type === 'active') {
+        this.instructionService.speakInstruction(
+          `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+        );
+      } else {
+        this.instructionService.speakInstruction(
+          ` Repos pendant ${this.remainingTime} seconds`
+        );
+      }
     } else if (this.currentRound < currentPhase.rounds) {
       // Passe au round suivant
       this.currentRound++;
@@ -197,7 +203,7 @@ export class TabataComponent {
 
       // Énoncer le début du round suivant
       this.instructionService.speakInstruction(
-        `Round ${this.currentRound} - ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+        `Round ${this.currentRound} -  ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
       );
     } else if (currentPhase.endRest) {
       // Gère le repos final après la phase
