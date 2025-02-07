@@ -3,8 +3,30 @@ import requests
 import pexpect
 import sys
 import os
+import subprocess
 
-# 1. Récupérer l'URL publique de ngrok
+# Se placer dans le répertoire de travail du projet
+os.chdir('/home/max/workspace/BoxingTimerApp')
+
+# # 1. Lancer le serveur local avec npx serve
+# print("🚀 Lancement de npx serve pour diffuser l'application...")
+# command = "npx serve dist/boxing-timer-app/browser/"
+# child_serve = pexpect.spawn(f"bash -c '{command}'", timeout=60, encoding='utf-8')
+
+# # Attendre que le serveur soit prêt
+# child_serve.expect("Serving", timeout=30)
+# print("✅ Serveur lancé avec succès !")
+
+# # 2. Lancer ngrok pour exposer le serveur local
+# print("🚀 Lancement de ngrok...")
+# command = "ngrok http 3000"
+# child_ngrok = pexpect.spawn(f"bash -c '{command}'", timeout=60, encoding='utf-8')
+
+# # Attendre que ngrok soit prêt
+# child_ngrok.expect("Forwarding", timeout=30)
+# print("✅ ngrok lancé avec succès !")
+
+# 3. Récupérer l'URL publique de ngrok
 try:
     response = requests.get("http://localhost:4040/api/tunnels", timeout=5)
     response.raise_for_status()
@@ -16,10 +38,7 @@ except (requests.RequestException, KeyError, IndexError) as e:
 
 print(f"✅ URL publique de ngrok récupérée : {NGROK_URL}")
 
-# Se placer dans le répertoire de travail du projet
-os.chdir('/home/max/workspace/BoxingTimerApp')
-
-# 2. Lancer bubblewrap init
+# 4. Lancer bubblewrap init
 command = "bubblewrap init --manifest=http://localhost:3000/manifest.webmanifest --verbose"
 print(f"🚀 Exécution de la commande : {command}")
 try:
@@ -28,7 +47,7 @@ except pexpect.ExceptionPexpect as e:
     print(f"❌ Erreur lors du lancement de bubblewrap : {e}")
     sys.exit(1)
 
-# 3. Liste des entrées à envoyer
+# 5. Liste des entrées à envoyer
 entries = {
     "Domain:": NGROK_URL,
     "URL path:": "/",
@@ -49,7 +68,7 @@ entries = {
     "Key name:": "android"
 }
 
-# 4. Attente et envoi des réponses
+# 6. Attente et envoi des réponses
 for prompt, response in entries.items():
     try:
         print(f"⏳ Attente du prompt : {prompt}")
@@ -63,12 +82,12 @@ for prompt, response in entries.items():
         print(f"⚠️ Bubblewrap s'est terminé de manière inattendue.")
         sys.exit(1)
 
-# 5. Attendre la fin du processus de bubblewrap
+# 7. Attendre la fin du processus de bubblewrap
 child.expect(pexpect.EOF)
 print("✅ Bubblewrap initialisé avec succès !")
 
-# 6. Ajouter la commande de build
-BUILD_PWD = "chnageme"
+# 8. Ajouter la commande de build
+BUILD_PWD = "changeme"
 
 # Lancer la commande bubblewrap build dans le même répertoire
 command = "bubblewrap build"
@@ -84,9 +103,8 @@ child.sendline(BUILD_PWD)
 child.expect(pexpect.EOF)
 print("✅ Build de l'apk terminé avec succès !")
 
-# 7. Capturer la sortie du build en temps réel
+# 9. Capturer la sortie du build en temps réel
 output = child.before
 
 # Imprimer la sortie du build
 print(f"✅ Build de l'apk terminé avec succès !")
-print(f"Sortie du build :\n{output}")
