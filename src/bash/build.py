@@ -4,27 +4,36 @@ import pexpect
 import sys
 import os
 import subprocess
+import threading
+
 
 # Se placer dans le répertoire de travail du projet
 os.chdir('/home/max/workspace/BoxingTimerApp')
 
-# # 1. Lancer le serveur local avec npx serve
-# print("🚀 Lancement de npx serve pour diffuser l'application...")
-# command = "npx serve dist/boxing-timer-app/browser/"
-# child_serve = pexpect.spawn(f"bash -c '{command}'", timeout=60, encoding='utf-8')
+def launch_serve():
+    print("🚀 Lancement de npx serve pour diffuser l'application...")
+    subprocess.Popen(
+        ["npx", "serve", "dist/boxing-timer-app/browser/"]
+    )
 
-# # Attendre que le serveur soit prêt
-# child_serve.expect("Serving", timeout=30)
-# print("✅ Serveur lancé avec succès !")
+def launch_ngrok():
+    print("🚀 Lancement de ngrok...")
+    subprocess.Popen(
+        ["ngrok", "http", "3000"]
+    )
 
-# # 2. Lancer ngrok pour exposer le serveur local
-# print("🚀 Lancement de ngrok...")
-# command = "ngrok http 3000"
-# child_ngrok = pexpect.spawn(f"bash -c '{command}'", timeout=60, encoding='utf-8')
+# Lancer serve et ngrok en parallèle
+serve_thread = threading.Thread(target=launch_serve)
+ngrok_thread = threading.Thread(target=launch_ngrok)
 
-# # Attendre que ngrok soit prêt
-# child_ngrok.expect("Forwarding", timeout=30)
-# print("✅ ngrok lancé avec succès !")
+serve_thread.start()
+ngrok_thread.start()
+
+serve_thread.join()  # Attends que serve termine (facultatif)
+ngrok_thread.join()  # Attends que ngrok termine (facultatif)
+
+# Ajouter un délai pour être sûr que ngrok a bien démarré
+time.sleep(5)  # Attendre 5 secondes pour être sûr que ngrok est prêt
 
 # 3. Récupérer l'URL publique de ngrok
 try:
@@ -42,7 +51,7 @@ print(f"✅ URL publique de ngrok récupérée : {NGROK_URL}")
 command = "bubblewrap init --manifest=http://localhost:3000/manifest.webmanifest --verbose"
 print(f"🚀 Exécution de la commande : {command}")
 try:
-    child = pexpect.spawn(command, timeout=10, encoding='utf-8')
+    child = pexpect.spawn(command, timeout=10, encoding='utf-8', universal_newlines=True)
 except pexpect.ExceptionPexpect as e:
     print(f"❌ Erreur lors du lancement de bubblewrap : {e}")
     sys.exit(1)
@@ -87,7 +96,7 @@ child.expect(pexpect.EOF)
 print("✅ Bubblewrap initialisé avec succès !")
 
 # 8. Ajouter la commande de build
-BUILD_PWD = "changeme"
+BUILD_PWD = "MaxMDP"
 
 # Lancer la commande bubblewrap build dans le même répertoire
 command = "bubblewrap build"
