@@ -69,3 +69,25 @@ and run   http-server --cors --spa
 
 To access to it from mobile device go on http://192.168.X.XX:8080/
 (check ifconfig  looking for 192.168...)
+
+
+# BUILD APK
+
+AFTER PURGE: (rm -rf /dist dans mon projet)
+0- ng build --configuration production
+1- npx serve dist/boxing-timer-app/browser/  afin d'exposer le port3000 (check  lsof -i :3000 &&  kill -9 <PID> if needed)
+2- ngrok http 3000      pour obtenir une URL accessible depuis ton APK (check= ps aux | grep ngrok   && kill -9 <PID> if needed)
+3- mettre à jour bubblewrap grace à la ligne Forwarding (ici localhost:3000)
+MANUEL:
+	bubblewrap init --manifest=http://localhost:3000/manifest.webmanifest --verbose
+	Domain: la ligne Forwarding
+	UrlPath /
+	...
+4- on build: bubblewrap build
+5- on l'installe : adb install app-release.apk
+dans mon cas, je copie le app-release-signed.apk vers une USB pour la mettre sur mon tel via un windows
+AUTO:
+cd /workspace/BoxingTimerApp/src/bash$ 
+python3 build.py
+
+Then, cp/paste app-release-signed.apk  on mobile for install
