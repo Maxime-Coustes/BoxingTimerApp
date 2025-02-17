@@ -132,6 +132,7 @@ for prompt, response in entries.items():
 
 # 7. Attendre la fin du processus de bubblewrap
 child.expect(pexpect.EOF)
+os.system('clear')
 print("✅ Bubblewrap initialisé avec succès !")
 
 # 8. Ajouter la commande de build
