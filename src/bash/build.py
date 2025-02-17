@@ -6,6 +6,45 @@ import os
 import subprocess
 import threading
 
+def kill_process_by_port(port):
+    """Vérifie si le port est utilisé, et tue le processus si c'est le cas."""
+    try:
+        # Vérifier si le port est en écoute (lsof)
+        result = subprocess.run(['lsof', '-i', f':{port}'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        if result.stdout:
+            # Récupérer le PID du processus qui utilise ce port
+            pid = result.stdout.decode('utf-8').splitlines()[1].split()[1]  # Récupère le PID de la 2e ligne
+            print(f"🔴 Port {port} déjà utilisé, tuons le processus avec PID {pid}...")
+            subprocess.run(['kill', '-9', pid])
+            print(f"✅ Processus avec PID {pid} tué.")
+        else:
+            print(f"✅ Aucun processus utilisant le port {port}.")
+    except Exception as e:
+        print(f"❌ Erreur lors de la vérification du port {port}: {e}")
+
+def kill_ngrok_process():
+    """Vérifie si un processus ngrok est lancé et tue le processus si nécessaire."""
+    try:
+        result = subprocess.run(['ps', 'aux'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if b'ngrok' in result.stdout:
+            print("🔴 ngrok déjà lancé, on tue le processus...")
+            # Cherche le PID de ngrok dans le résultat de ps aux
+            for line in result.stdout.decode('utf-8').splitlines():
+                if 'ngrok' in line:
+                    pid = line.split()[1]
+                    subprocess.run(['kill', '-9', pid])
+                    print(f"✅ Processus ngrok avec PID {pid} tué.")
+                    break
+        else:
+            print("✅ Aucun processus ngrok trouvé.")
+    except Exception as e:
+        print(f"❌ Erreur lors de la vérification de ngrok: {e}")
+
+# Vérification des processus existants avant de lancer de nouveaux processus
+kill_process_by_port(3000)
+kill_ngrok_process()
+
 
 # Se placer dans le répertoire de travail du projet
 os.chdir('/home/max/workspace/BoxingTimerApp')
@@ -51,7 +90,7 @@ print(f"✅ URL publique de ngrok récupérée : {NGROK_URL}")
 command = "bubblewrap init --manifest=http://localhost:3000/manifest.webmanifest --verbose"
 print(f"🚀 Exécution de la commande : {command}")
 try:
-    child = pexpect.spawn(command, timeout=10, encoding='utf-8', universal_newlines=True)
+    child = pexpect.spawn(command, timeout=10, encoding='utf-8')
 except pexpect.ExceptionPexpect as e:
     print(f"❌ Erreur lors du lancement de bubblewrap : {e}")
     sys.exit(1)
