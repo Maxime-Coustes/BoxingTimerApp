@@ -1,16 +1,6 @@
-.tabata-container {
-    text-align: center;
-  }
-  
-  
-  .timer-display h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .timer-display h2, .timer-display h3 {
-    font-size: 1.2rem;
-    color: #555;
+.tabata-workout h2 {
+  text-align:  center;
+  font-size: 1.2rem;
   }
   
   .control-buttons button {
