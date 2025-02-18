@@ -74,7 +74,8 @@ export class WheelTimer {
     */
     selectAuto(value: number) {
         this.selectedMinute = value;
-        this.instructionService.speakInstruction(`Minuteur choisie: ${this.selectedMinute} minutes`);
+        // this.instructionService.speakInstruction(`Minuteur choisie: ${this.selectedMinute} minutes`);
+        this.startCustomTimer();
     }
 
     /**

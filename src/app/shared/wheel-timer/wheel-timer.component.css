@@ -1,3 +1,9 @@
+h2 {
+  font-size: 1.2rem;
+  text-align: center;
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
 /* Conteneur principal pour le timer personnalisé */
 .custom-timer-container {
   display: flex;
@@ -34,6 +40,7 @@
 .time-wheel-header {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 /* Corps de chaque roue de temps */
@@ -105,7 +112,7 @@
   flex: 1;
   max-width: 100px; /* Limite la largeur des boutons */
   transition: transform 0.2s, background-color 0.2s;
-  font-size: 0.9rem; /* Réduction de la taille de la police */
+  font-size: 1rem; /* Réduction de la taille de la police */
 }
 
 /* Style pour le container des roues */

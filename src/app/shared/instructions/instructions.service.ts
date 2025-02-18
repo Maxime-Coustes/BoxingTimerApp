@@ -10,7 +10,7 @@ export class InstructionsService {
   instructionId: any; // Pour l'instruction répétée
   // Configuration des instructions
   instructionInterval = 3; // Intervalle par défaut (toutes les 10 secondes)
-  instructionMinValue = 1; // Valeur min du chiffre prononcé
+  instructionMinValue = 3; // Valeur min du chiffre prononcé
   instructionMaxValue = 6; // Valeur max du chiffre prononcé
   instructionTimer: any;    // Timer pour les instructions orales
 
