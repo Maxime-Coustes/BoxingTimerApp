@@ -19,9 +19,9 @@ import { InstructionsService } from '../../../app/shared/instructions/instructio
   styleUrls: ['./boxing-timer.component.css']
 })
 export class BoxingTimerComponent implements AfterViewInit {
-  activeTime: number = 8; // Default: 3 minutes
-  restTime: number = 8;   // Default: 1 minute
-  rounds: number = 2;      // Default: 3 rounds
+  activeTime: number = 180; // Default: 3 minutes
+  restTime: number = 60;   // Default: 1 minute
+  rounds: number = 3;      // Default: 3 rounds
 
   // Timer state
   timeLeft: number = 0;

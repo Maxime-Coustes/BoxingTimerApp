@@ -164,7 +164,7 @@ export class TabataComponent {
 
     // Énoncer le nom de la phase au début
     this.instructionService.speakInstruction(
-      `${currentPhase.id} - ${initialSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+      `${currentPhase.id} - ${initialSubPhase.type === 'active' ? currentPhase.phases[0].description : 'Phase de repos'}`
     );
   }
 
@@ -187,7 +187,7 @@ export class TabataComponent {
       // Énoncer le nom de la prochaine sous-phase
       if (nextSubPhase.type === 'active') {
         this.instructionService.speakInstruction(
-          `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+          `${currentPhase.id} - ${nextSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos' }`
         );
       } else {
         this.instructionService.speakInstruction(
@@ -203,8 +203,10 @@ export class TabataComponent {
 
       // Énoncer le début du round suivant
       this.instructionService.speakInstruction(
-        `Round ${this.currentRound} -  ${firstSubPhase.type === 'active' ? 'Phase active' : 'Phase de repos'}`
+        `Round ${this.currentRound} - ${firstSubPhase.type === 'active' ? currentPhase.phases[0].description : 'Phase de repos'}`
       );
+      
+      
     } else if (currentPhase.endRest) {
       // Gère le repos final après la phase
       this.remainingTime = currentPhase.endRest;
@@ -232,6 +234,9 @@ export class TabataComponent {
       // Énoncer le début de la nouvelle phase
       this.instructionService.speakInstruction(
         `Nouvelle phase : ${nextPhase.id}`
+      );
+      this.instructionService.speakInstruction(
+        `${nextPhase.phases[0].description}`
       );
     } else {
       // Fin de la séquence Tabata
