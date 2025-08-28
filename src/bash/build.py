@@ -136,7 +136,7 @@ os.system('clear')
 print("✅ Bubblewrap initialisé avec succès !")
 
 # 8. Ajouter la commande de build
-BUILD_PWD = "changeme"
+BUILD_PWD = "MaxMDP"
 
 # Lancer la commande bubblewrap build dans le même répertoire
 command = "bubblewrap build"
